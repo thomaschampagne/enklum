@@ -12,7 +12,6 @@ echo "============================================================"
 : "${DEFAULT_WORKSPACE_DIR:?Environment variable DEFAULT_WORKSPACE_DIR is not set}"
 
 ### Add repos ###
-dnf copr enable atim/lazygit -y # LazyGit
 dnf copr enable jdxcode/mise -y # Mise
 
 ### Apply Updates ###
@@ -26,7 +25,8 @@ dnf install -y --setopt=install_weak_deps=False \
     less tree which findutils \
     procps-ng psmisc \
     bind-utils iproute iputils traceroute nmap netcat \
-    ripgrep file fzf fd zoxide \
+
+    ripgrep file fzf fd zoxide \ # TODO Load file fzf fd zoxide from mise ?
     nano vim \
     unzip 7zip \
     git-core \

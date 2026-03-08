@@ -12,6 +12,7 @@ export interface MisePkg {
     version?: string; // Install latest if empty
 }
 
+// TODO 2 packages array needed: defauts + user defined
 // Input array based on your example, expanded to show different cases
 const misePkgs: MisePkg[] = [
     {
