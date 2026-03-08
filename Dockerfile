@@ -1,4 +1,3 @@
-# Use the latest stable Fedora release
 FROM fedora:latest
 
 # Metadata
@@ -7,6 +6,11 @@ LABEL description="Fedora dev env: Helix, Yazi, Node.js LTS"
 
 # 1. Install system dependencies, Node.js LTS, and Helix
 # Yazi is available in Fedora official repos or via Copr/Cargo as of 2026
+
+# TODO Run dnf copr enable jdxcode/mise
+
+# TODO Run dnf install mise
+
 RUN dnf copr enable lihaohong/yazi -y
 RUN dnf update -y && \
     dnf install -y \
@@ -14,8 +18,14 @@ RUN dnf update -y && \
     vim \
     nano \
     helix \
+    gettext \
+    openssl \
+    curl \
+    jq \
+    yq \
     nodejs \
     npm \
+    btop htop \
     yazi \
     git \
     ncurses \
