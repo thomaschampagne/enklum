@@ -21,7 +21,7 @@ echo 'git config --global user.email "${GIT_EMAIL}"' >> ~/.bashrc
 source ~/.bashrc
 
 ### Configure zoxide ###
-zoxide add /${DEFAULT_WORKSPACE_DIR}
+# TODO add at later stage: zoxide add /${DEFAULT_WORKSPACE_DIR}
 
 ### Git config ###
 git config --global --add safe.directory '*'

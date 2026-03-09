@@ -19,14 +19,14 @@ echo "Apply updates"
 dnf upgrade -y
 
 ### Apply core installs ###
+    # ripgrep file fzf fd zoxide \ # TODO Load file fzf fd zoxide from mise ?
 echo "Install base core packages"
 dnf install -y --setopt=install_weak_deps=False \
     hostname coreutils util-linux sudo shadow-utils gettext dos2unix \
     less tree which findutils \
     procps-ng psmisc \
     bind-utils iproute iputils traceroute nmap netcat \
-
-    ripgrep file fzf fd zoxide \ # TODO Load file fzf fd zoxide from mise ?
+    file \
     nano vim \
     unzip 7zip \
     git-core \

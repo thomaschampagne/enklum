@@ -16,12 +16,42 @@ export interface MisePkg {
 // Input array based on your example, expanded to show different cases
 const misePkgs: MisePkg[] = [
     {
-        name: "lazygit", // Duplicate to test deduplication
+        name: "sd",
         type: MiseType.Tool,
         use: true
     },
     {
-        name: "helix", // Duplicate to test deduplication
+        name: "ripgrep",
+        type: MiseType.Tool,
+        use: true
+    },
+    {
+        name: "fzf",
+        type: MiseType.Tool,
+        use: true
+    },
+    {
+        name: "zoxide",
+        type: MiseType.Tool,
+        use: true
+    },
+    {
+        name: "lazygit",
+        type: MiseType.Tool,
+        use: true
+    },
+    {
+        name: "helix",
+        type: MiseType.Tool,
+        use: true
+    },
+    {
+        name: "yazi",
+        type: MiseType.Tool,
+        use: true
+    },
+    {
+        name: "zellij",
         type: MiseType.Tool,
         use: true
     },

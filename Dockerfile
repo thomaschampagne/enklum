@@ -1,5 +1,5 @@
 
-ARG OCI_BASE_IMAGE=fedora:latest
+ARG OCI_BASE_IMAGE=fedora:43 # TODO:later Set base version as a build ARG
 ARG OCI_BASE_IMAGE_URL=https://hub.docker.com/_/fedora
 ARG OCI_TITLE=oci-vault-image
 ARG OCI_REPO_URL=https://github.com/thomaschampagne/kajko
@@ -57,14 +57,15 @@ LABEL \
 WORKDIR /setup
 
 # TODO comments
-COPY ./src .
+COPY ./src/core/elevated.init.sh ./core/elevated.init.sh
+COPY ./src/core/user.setup.sh ./core/user.setup.sh
 
 # TODO comments
 RUN \
     # TODO comments
-    sh ./core/elevated.init.sh && \
+    sh ./core/elevated.init.sh # && \
     # TODO comments
-    rm -rf ./core
+    # rm -rf ./core
 
 WORKDIR ${DEFAULT_WORKSPACE_DIR}
 
