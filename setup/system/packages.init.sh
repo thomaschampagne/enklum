@@ -20,6 +20,7 @@ dnf install -y --setopt=install_weak_deps=False \
   libicu \
   util-linux \
   shadow-utils \
+  tini \
   gcc \
   gettext \
   less \
@@ -36,6 +37,9 @@ dnf install -y --setopt=install_weak_deps=False \
   netcat \
   tcpdump \
   file \
+  zsh \
+  zsh-autosuggestions \
+  zsh-syntax-highlighting \
   nano \
   vim \
   unzip \
@@ -49,9 +53,6 @@ dnf install -y --setopt=install_weak_deps=False \
   btop \
   htop \
   mise
-
-# FIXME "clear" command not working
-# TODO support zsh later by default 
 
 echo "Removing unnecessary packages..."
 dnf autoremove -y

@@ -8,7 +8,7 @@ set -o pipefail
 : "${DEFAULT_WORKSPACE_DIR:?Environment variable DEFAULT_WORKSPACE_DIR is not set}"
 
 # Create the main user
-useradd -m -d /home/${SYSTEM_USERNAME} -s /bin/bash -G wheel ${SYSTEM_USERNAME}
+useradd -m -d /home/${SYSTEM_USERNAME} -s /bin/zsh -G wheel ${SYSTEM_USERNAME}
 
 # Add workspace dir
 mkdir -p ${DEFAULT_WORKSPACE_DIR}

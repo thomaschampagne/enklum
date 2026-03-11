@@ -13,7 +13,7 @@ podman build `
   -t kajko:dev .
 
 # Run the container
-podman run -it `
+podman run -dit `
   --name kajko `
   --hostname kajko `
   --user dev `
@@ -23,10 +23,9 @@ podman run -it `
   --volume "${pwd}:/workspace" `
   --network=host `
   --cap-add=NET_RAW `
-  kajko:dev `
-  bash
+  kajko:dev
 
 # TODO Test delegated volume fro /home/dev
 
 # Attach to the container
-# podman exec -it kajko:dev bash # TODO or zsh 
+podman exec -it kajko zsh

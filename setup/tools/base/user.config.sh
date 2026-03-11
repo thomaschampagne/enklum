@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 set -e
 set -o pipefail
@@ -7,26 +7,26 @@ echo "============================================================"
 echo "exec \"$(basename "$0")\" script as script as \"$(whoami)\" user"
 echo "============================================================"
 
-#### .bashrc setup ####
+#### .zshrc setup ####
 
 # - Append Mise shims activation...
-echo 'eval "$(mise activate --shims)"' >> ~/.bashrc
+# echo 'eval "$(mise activate --shims)"' >> ~/.zshrc
 
 # - Append starship
-echo 'eval "$(starship init bash)"' >> ~/.bashrc
+echo 'eval "$(starship init zsh)"' >> ~/.zshrc
 
 # - Append zoxide
-echo 'eval "$(zoxide init bash)"' >> ~/.bashrc
+echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
 
 # - Git default username & email
-echo 'git config --global user.name "${GIT_NAME}"' >> ~/.bashrc
-echo 'git config --global user.email "${GIT_EMAIL}"' >> ~/.bashrc
+echo 'git config --global user.name "${GIT_NAME}"' >> ~/.zshrc
+echo 'git config --global user.email "${GIT_EMAIL}"' >> ~/.zshrc
 
 # - Append bun binaries
-echo 'export PATH="$PATH:~/.bun/bin"' >> ~/.bashrc
+echo 'export PATH="$PATH:~/.bun/bin"' >> ~/.zshrc
 
-# - Load bashrc for next steps
-source ~/.bashrc
+# - Load zshrc for next steps
+source ~/.zshrc
 
 #### Tools config ####
 # Configure zoxide

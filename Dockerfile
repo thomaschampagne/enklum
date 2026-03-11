@@ -61,7 +61,6 @@ LABEL \
 WORKDIR /setup
 
 # TODO Remove safe integrity layer for image build cache usage at the (COPY + RUN) ?
-
 # TODO Add Pre-system update scripts loop
 
 RUN \
@@ -77,12 +76,25 @@ RUN dos2unix ./system/packages.init.sh && bash ./system/packages.init.sh
 COPY ./setup/system/os.config.sh ./system/os.config.sh
 RUN dos2unix ./system/os.config.sh && bash ./system/os.config.sh
 
-###### Setup DEV TOOLS BASELINE & config #######
+COPY ./setup/system/resources/.zshrc /home/${SYSTEM_USERNAME}/.zshrc
+RUN dos2unix /home/${SYSTEM_USERNAME}/.zshrc && \
+  chown ${SYSTEM_USERNAME}:${SYSTEM_USERNAME} /home/${SYSTEM_USERNAME}/.zshrc && \
+  chmod 644 /home/${SYSTEM_USERNAME}/.zshrc
+
+###### Setup TOOLS BASELINE & Config #######
 COPY ./setup/tools/base/packages.init.sh ./setup/tools/base/packages.init.sh
-RUN dos2unix ./setup/tools/base/packages.init.sh && runuser -u ${SYSTEM_USERNAME} -- bash ./setup/tools/base/packages.init.sh
+RUN \
+  # Run base tool package as user
+  dos2unix ./setup/tools/base/packages.init.sh && \
+  runuser -u ${SYSTEM_USERNAME} -- zsh ./setup/tools/base/packages.init.sh
 
 COPY ./setup/tools/base/user.config.sh ./tools/base/user.config.sh
-RUN dos2unix ./tools/base/user.config.sh && runuser -u ${SYSTEM_USERNAME} -- bash ./tools/base/user.config.sh
+RUN dos2unix ./tools/base/user.config.sh && runuser -u ${SYSTEM_USERNAME} -- zsh ./tools/base/user.config.sh
+
+# Copy base resources default files
+COPY ./setup/tools/base/resources/.config/ /home/${SYSTEM_USERNAME}/
+RUN dos2unix /home/${SYSTEM_USERNAME}/.config/* && \
+  chown ${SYSTEM_USERNAME}:${SYSTEM_USERNAME} /home/${SYSTEM_USERNAME}/.config/
 
 ###### Setup DEV TOOLS USER & config #######
 # TODO Copy all *.sh sort them by filename and run in order ? @see https://github.com/thomaschampagne/oci-images/blob/main/cloud-domain/entrypoint.sh#L144
@@ -90,8 +102,11 @@ RUN dos2unix ./tools/base/user.config.sh && runuser -u ${SYSTEM_USERNAME} -- bas
 # Switch to default workspace directory
 WORKDIR ${DEFAULT_WORKSPACE_DIR}
 
+# TODO Add entrypoint file @see https://github.com/thomaschampagne/oci-images/blob/main/cloud-domain/entrypoint.sh#L140 => L161
+# COPY ./entrypoint.sh /entrypoint.sh
+
 # ... and default user
 USER ${SYSTEM_USERNAME}
 
-# TODO Add entrypoint file @see https://github.com/thomaschampagne/oci-images/blob/main/cloud-domain/entrypoint.sh#L140 => L161
+# ENTRYPOINT ["/sbin/tini", "--", "/entrypoint.sh"]
 CMD ["/bin/sh", "-c", "sleep infinity"]
