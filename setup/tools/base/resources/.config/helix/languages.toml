@@ -1,0 +1,14 @@
+# [language-server.typescript-language-server.config]
+# # Use Bun's global TypeScript installation
+# tsdk = "~/.bun/install/global/node_modules/typescript/lib"
+
+# [[language]]
+# name = "typescript"
+# language-servers = ["typescript-language-server"]
+# formatter = { command = "prettier", args = ["--parser", "typescript"] }
+# auto-format = true   
+
+[language-server.ts]
+command = "typescript-language-server"
+args = ["--stdio"]
+language-id = "typescript"

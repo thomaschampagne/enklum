@@ -40,25 +40,9 @@ podman run -it --hostname my-kajko -u kajko -v ${pwd}:/home/kajko/workspace kajk
 
 - Jetbrain Mono to install or is relies on terminal I use ?
 
-- programs:
-  - neovim
-  - opencode
-  - yazy => helix
-  - fd, fzf, others usefull
-  - lazygit
-  - zellij
-  - jq + yq
+- yazy => helix integration
   
-- set an hostname
-- drop dev user password for sudos ok
-- runtimes
-  - bunjs
-  - node
-  - java
-  - rust
-  - golang
-  - python
-
+- set an hostname ?
 - helix
   - map custom configs
   - languages servers
@@ -66,7 +50,7 @@ podman run -it --hostname my-kajko -u kajko -v ${pwd}:/home/kajko/workspace kajk
     - ...
 
 - shell: zsh by default? (build args + .(bashrc|zshrc) config)
-- shell enhancer? starship ??
+- starship env to choose template preset
 
 - git config:
   - dont break git ending
@@ -76,7 +60,7 @@ podman run -it --hostname my-kajko -u kajko -v ${pwd}:/home/kajko/workspace kajk
 
 - Test to mounts a volume on /home/$user (goal: persist user data)
 
-- ssh server to connect using vscode
+- ssh server to connect using vscode ? or code-server ?
 
 - GitHub CI
 - find a new name
