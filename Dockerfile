@@ -1,5 +1,5 @@
 
-ARG OCI_BASE_IMAGE=fedora:43 # TODO:later Set base version as a build ARG
+ARG OCI_BASE_IMAGE=fedora:43 # TODO:later Set base version as a build ARG # TODO Can be in argfile.conf ??
 ARG OCI_BASE_IMAGE_URL=https://hub.docker.com/_/fedora
 ARG OCI_TITLE=oci-vault-image
 ARG OCI_REPO_URL=https://github.com/thomaschampagne/kajko
@@ -17,9 +17,9 @@ ARG OCI_DESCRIPTION
 ARG OCI_MAINTAINER
 ARG OCI_REPO_URL
 ARG OCI_BUILD_DATE
-ARG SYSTEM_USERNAME
-ARG DEFAULT_WORKSPACE_DIR
-ARG GITHUB_TOKEN
+ARG SYSTEM_USERNAME # TODO Can be in argfile.conf file => "dev"
+ARG DEFAULT_WORKSPACE_DIR # TODO Can be in argfile.conf file => "/workspace"
+ARG GITHUB_TOKEN # TODO Can be in argfile.conf file
 
 ENV OCI_BASE_IMAGE=${OCI_BASE_IMAGE}
 ENV OCI_BASE_IMAGE_URL=${OCI_BASE_IMAGE_URL}
@@ -34,7 +34,7 @@ ENV SYSTEM_USERNAME=${SYSTEM_USERNAME}
 ENV DEFAULT_WORKSPACE_DIR=${DEFAULT_WORKSPACE_DIR}
 ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 
-# Custom Envs
+# Custom Envs # TODO Can be in .env file
 ENV GIT_NAME="Your Name"
 ENV GIT_EMAIL="your@email.com"
 ENV TZ="Europe/Paris"
@@ -60,21 +60,32 @@ LABEL \
 # Switch to setup workspace for init & config
 WORKDIR /setup
 
-# TODO Remove safe integrity layer for image build cache usage at the (COPY + RUN)
+# TODO Remove safe integrity layer for image build cache usage at the (COPY + RUN) ?
 
-###### Setup system side & config #######
+# TODO Add Pre-system update scripts loop
+
+RUN \
+  # Apply system update before anything
+  dnf upgrade -y && \
+  # And core system package to continue
+  dnf install -y dos2unix
+
+###### Setup SYSTEM side & config #######
 COPY ./setup/system/packages.init.sh ./system/packages.init.sh
-RUN bash ./system/packages.init.sh
+RUN dos2unix ./system/packages.init.sh && bash ./system/packages.init.sh
 
 COPY ./setup/system/os.config.sh ./system/os.config.sh
-RUN bash ./system/os.config.sh
+RUN dos2unix ./system/os.config.sh && bash ./system/os.config.sh
 
-###### Setup dev tools baseline & config #######
-COPY ./setup/dev-tools/base/packages.init.sh ./setup/dev-tools/base/packages.init.sh
-RUN runuser -u ${SYSTEM_USERNAME} -- bash ./setup/dev-tools/base/packages.init.sh
+###### Setup DEV TOOLS BASELINE & config #######
+COPY ./setup/tools/base/packages.init.sh ./setup/tools/base/packages.init.sh
+RUN dos2unix ./setup/tools/base/packages.init.sh && runuser -u ${SYSTEM_USERNAME} -- bash ./setup/tools/base/packages.init.sh
 
-COPY ./setup/dev-tools/base/user.config.sh ./dev-tools/base/user.config.sh
-RUN runuser -u ${SYSTEM_USERNAME} -- bash ./dev-tools/base/user.config.sh
+COPY ./setup/tools/base/user.config.sh ./tools/base/user.config.sh
+RUN dos2unix ./tools/base/user.config.sh && runuser -u ${SYSTEM_USERNAME} -- bash ./tools/base/user.config.sh
+
+###### Setup DEV TOOLS USER & config #######
+# TODO Copy all *.sh sort them by filename and run in order ? @see https://github.com/thomaschampagne/oci-images/blob/main/cloud-domain/entrypoint.sh#L144
 
 # Switch to default workspace directory
 WORKDIR ${DEFAULT_WORKSPACE_DIR}
@@ -82,4 +93,5 @@ WORKDIR ${DEFAULT_WORKSPACE_DIR}
 # ... and default user
 USER ${SYSTEM_USERNAME}
 
+# TODO Add entrypoint file @see https://github.com/thomaschampagne/oci-images/blob/main/cloud-domain/entrypoint.sh#L140 => L161
 CMD ["/bin/sh", "-c", "sleep infinity"]

@@ -20,7 +20,7 @@ mise use -g \
   bun \
   rust \
   go \
-  python && \
+  python
   # TODO Add node + java@openjdk-25 \ 
 
 # TODO LSP w/ helix health + formatter + debug OK
@@ -28,3 +28,5 @@ mise use -g \
 # bun add -g typescript-language-server
 
 # TODO Add ~/.bun/bin to PATH
+
+# TODO Add opencode

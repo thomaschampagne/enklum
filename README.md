@@ -74,9 +74,9 @@ podman run -it --hostname my-kajko -u kajko -v ${pwd}:/home/kajko/workspace kajk
 - doc:
   - run on networks host for ports
 
-
 - Test to mounts a volume on /home/$user (goal: persist user data)
 
+- ssh server to connect using vscode
 
 - GitHub CI
 - find a new name

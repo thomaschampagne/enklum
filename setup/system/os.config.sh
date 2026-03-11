@@ -3,6 +3,10 @@
 set -e
 set -o pipefail
 
+### Assert Envs Properly set ###
+: "${SYSTEM_USERNAME:?Environment variable SYSTEM_USERNAME is not set}"
+: "${DEFAULT_WORKSPACE_DIR:?Environment variable DEFAULT_WORKSPACE_DIR is not set}"
+
 # Create the main user
 useradd -m -d /home/${SYSTEM_USERNAME} -s /bin/bash -G wheel ${SYSTEM_USERNAME}
 

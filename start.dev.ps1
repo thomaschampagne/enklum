@@ -1,5 +1,6 @@
 # Stop execution on any error (like set -e)
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
 
 # Remove existing container if it exists
 podman rm -f kajko
