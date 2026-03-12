@@ -1,5 +1,4 @@
-# 📦 Kajko TODO Rename to Takua / Katod ???
-
+# 📦 Enklum
 
 > **The ultimate portable forge for terminal-driven developers.**
 
@@ -36,32 +35,32 @@ podman run -it --hostname my-kajko -u kajko -v ${pwd}:/home/kajko/workspace kajk
 <!-- podman run -it --hostname my-kajko kajko -->
 <!-- podman run -it -v $(pwd):/home/dev/workspace kajko -->
 
-## Todo
+<!--
+# TODOs
 
-- Jetbrain Mono to install or is relies on terminal I use ?
+## Docker and System
+- [ ] Reduce Docker image size: follow [Perplexity guide](https://www.perplexity.ai/search/how-to-reduce-size-of-docker-i-TsULWmUnSVOjoZePAW6jtw)
+- [ ] Set a custom hostname for the environment
+- [ ] Test mounting a volume to `/home/$user` to persist user data
+- [ ] Decide on remote access strategy (SSH server for VS Code or `code-server`)
+- [ ] Create a `docker-compose.yml` as a sample
+- [ ] Add ssh server access
 
-- yazy => helix integration
-  
-- set an hostname ?
-- helix
-  - map custom configs
-  - languages servers
-    - ..
-    - ...
+## CLI and Shell
+- [ ] Configure `starship` environment to choose a template preset
+- [ ] Add Emacs via `dnf`
+- [ ] Add a disk usage analyzer like `ncdu` or `dust`
 
-- shell: zsh by default? (build args + .(bashrc|zshrc) config)
-- starship env to choose template preset
+## Helix Editor
+- [ ] Map custom Helix configurations
+- [ ] Set up language servers for base runtimes
+- [ ] Integrate `yazi` file manager with Helix
 
-- git config:
-  - dont break git ending
+## Project and CI/CD
+- [ ] Rename project to "enklum" (reference to "enclume" in French)
+- [ ] Set up GitHub CI workflows
+- [ ] Write a comprehensive README
 
-- doc:
-  - run on networks host for ports
-
-- Test to mounts a volume on /home/$user (goal: persist user data)
-
-- ssh server to connect using vscode ? or code-server ?
-
-- GitHub CI
-- find a new name
-- Make a README
+### Notes
+- **JetBrains Mono**: You do not need to install this inside the container. As long as your host terminal or local VS Code uses the font, the container will display it correctly.## Todo
+-->

@@ -36,3 +36,15 @@ starship preset gruvbox-rainbow -o ~/.config/starship.toml
 # Configure Git
 git config --global --add safe.directory '*'
 git config --global init.defaultBranch main
+git config --global core.autocrlf true # Ensure skip LF vs CRLF comparison
+
+# TODO Configure zellij
+# zellij options --default-shell zsh --show-startup-tips false
+# ~/.config/zellij/config.kdl
+cat > ~/.config/zellij/config.kdl << 'EOF'
+// Set default shell to zsh
+default_shell "zsh"
+
+// Disable startup tips
+show_startup_tips false
+EOF   
