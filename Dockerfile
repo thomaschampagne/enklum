@@ -1,11 +1,10 @@
-
 ARG OCI_BASE_IMAGE=fedora:43 # TODO:later Set base version as a build ARG # TODO Can be in argfile.conf ??
 ARG OCI_BASE_IMAGE_URL=https://hub.docker.com/_/fedora
 ARG OCI_TITLE=oci-vault-image
 ARG OCI_REPO_URL=https://github.com/thomaschampagne/kajko
 ARG OCI_DESCRIPTION="...TODO...." # TODO ...
 ARG OCI_MAINTAINER="Thomas Champagne"
-ARG SYSTEM_USERNAME="crafter"
+ARG SYSTEM_USERNAME="smith"
 ARG DEFAULT_WORKSPACE_DIR="/workspace"
 
 FROM ${OCI_BASE_IMAGE}

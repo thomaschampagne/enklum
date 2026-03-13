@@ -18,23 +18,23 @@ mise use -g sd ripgrep fzf zoxide starship
 # -- Base dev tools (Mise)
 mise use -g helix neovim lazygit yazi zellij opencode # TODO Fix zellij config not applied 
 
-# -- Runtimes (Mise)
+# -- Base Runtimes (Mise)
 mise use -g \
-  bun \
-  node@lts \
-  rust --profile minimal \
-  go \
-  python uv \
-  # java@openjdk-25  # TODO Too much space required ?
+  node@lts
+  # TODO Add these runtime on user defined installs: bun \
+  # TODO Add these runtime on user defined installs: rust \
+  # TODO Add these runtime on user defined installs: go \
+  # TODO Add these runtime on user defined installs: python uv \
+  # TODO Add these runtime on user defined installs: java@openjdk-25  # TODO Too much space required ?
 
-# - Npm 
+# - Base Npm Tools
 # -- Tools required for development (npm)
 npm install -g npm@latest
 npm add -g \
   typescript \
   prettier
 
-### Lsp Installs ### (for editors like helix https://github.com/helix-editor/helix/wiki/Language-Server-Configurations)
+### Base Lsp Installs ### (for editors like helix https://github.com/helix-editor/helix/wiki/Language-Server-Configurations)
 # - Mise
 mise use -g marksman
 

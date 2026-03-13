@@ -1,5 +1,11 @@
 # 📦 Enklum
 
+<!--toc:start-->
+- [📦 Enklum](#📦-enklum)
+  - [Build](#build)
+  - [Run (Interactive with TTY)](#run-interactive-with-tty)
+<!--toc:end-->
+
 > **The ultimate portable forge for terminal-driven developers.**
 
 **Kajko** (from *Kaji* 鍛冶 / Forge + *Hako* 箱 / Box) is a zero-compromise, polyglot development container. It provides a heavily customized, terminal-first environment powered by Neovim and [mise](https://github.com/jdx/mise) for seamless toolchain management.
