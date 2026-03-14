@@ -26,7 +26,7 @@ ENV \
   ENKLUM_USERNAME=${ENKLUM_USERNAME} \
   ENKLUM_WORKSPACE_DIR=${ENKLUM_WORKSPACE_DIR} \
   ENKLUM_GIT_USER_NAME="Smith Black" \
-  ENKLUM_GIT_USER_EMAIL="smith@enklum.local" \
+  ENKLUM_GIT_USER_EMAIL="smith@enklum.dev" \
   ENKLUM_DEFAULT_EDITOR="hx" \
   TZ="Europe/Paris" \
   TERM="xterm-256color" \
@@ -67,7 +67,7 @@ COPY ./setup/tools ./tools
 COPY ./setup/resources/home /home/${ENKLUM_USERNAME}
 RUN \
   # Ensure linux format of setup stuff
-  find ./tools -type f -exec dos2unix {} \; && \
+  find ./tools -type f -exec dos2unix {} \; && dos2unix /home/${ENKLUM_USERNAME}/.zshrc && \
   # Ensure proper rights
   chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /home/${ENKLUM_USERNAME} && chmod 644 /home/${ENKLUM_USERNAME}/.zshrc && \
   # Init tools installations & configuration as user

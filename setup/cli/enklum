@@ -66,7 +66,7 @@ show_help() {
     echo
     echo "Options:"
     echo "  --update       Update system packages including mise"
-    echo "  --list-pkgs         List available packages & tools"
+    echo "  --list-pkgs    List available packages & tools"
     echo "  --help         Show this help message and exit"
     echo
     exit 0

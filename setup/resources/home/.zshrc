@@ -1,3 +1,5 @@
+# TODO Move resource folder at root /
+
 # Print Banner (@see https://www.patorjk.com/software/taag/)
 echo "                                             ";
 echo "                                             ";
