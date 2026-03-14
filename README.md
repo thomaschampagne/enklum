@@ -1,15 +1,11 @@
-# ENKLUM
-
-<!-- > A portable Fedora terminal-driven development forge -->
-<!-- ```text
+<pre align="center">
 ██████ ███  ██ ██ ▄█▀ ██     ██  ██ ██▄  ▄██ 
 ██▄▄   ██ ▀▄██ ████   ██     ██  ██ ██ ▀▀ ██ 
 ██▄▄▄▄ ██   ██ ██ ▀█▄ ██████ ▀████▀ ██    ██ 
-``` -->
+A portable Fedora terminal-driven development forge
+</pre>
 
-![ENKLUM logo](./logo.png)
-
-ENKLUM (from the French word **"enclume"** for **anvil**) is a ready-to-use containerized development environment on Fedora. It provides a terminal-first forge with all the tools developers need to code, debug, and ship without the hassle of setting up a new machine.
+From the French word **"enclume"** for **anvil** is a ready-to-use containerized development environment on Fedora. It provides a terminal-first forge with all the tools developers need to code, debug, and ship without the hassle of setting up a new machine.
 
 ## 🛠️ Why ENKLUM?
 
