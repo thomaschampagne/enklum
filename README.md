@@ -176,21 +176,6 @@ Then build your custom image:
 podman build -t my-custom-enklum .
 ```
 
-## 📂 Project Structure
-
-```
-enklum/
-├── Dockerfile              # Container definition
-├── image.build.sh          # Build script
-├── argfile.default.conf    # Build arguments
-├── .env.sample             # Environment variables template
-├── setup/
-│   ├── system/             # Fedora system packages
-│   ├── tools/              # Tools installed via mise
-│   ├── resources/home/    # User home config (.zshrc, mise, helix, etc.)
-│   └── cli/               # ENKLUM CLI utilities
-```
-
 ## 📜 License
 
 MIT License — see [LICENSE](LICENSE) file.
@@ -213,6 +198,7 @@ MIT License — see [LICENSE](LICENSE) file.
 - [x] Map lazygit editor to helix
 
 ## Project and CI/CD
+- [ ] Easy user custom tools & config from base tools+config => Will be improved later with mise env files ?
 - [ ] Set up GitHub CI workflows @P1
 - [ ] Write a comprehensive README @P1
 - [ ] rename zsh script extension as .zsh @P2
