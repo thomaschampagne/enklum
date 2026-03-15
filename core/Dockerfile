@@ -11,7 +11,7 @@ ARG OCI_REPO_URL=https://github.com/thomaschampagne/enklum
 ARG OCI_DESCRIPTION="A portable Fedora terminal-driven development forge"
 ARG OCI_MAINTAINER="Thomas Champagne"
 
-FROM ${OCI_BASE_IMAGE}
+FROM ${OCI_BASE_IMAGE} as core
 
 ARG OCI_BASE_IMAGE
 ARG OCI_BASE_IMAGE_URL
@@ -66,7 +66,15 @@ RUN \
   # Init system & os configuration
   bash ./dnf.install.sh && bash ./os.config.sh
 
-# ---- Cli Tools setup ----
+WORKDIR /setup/core/res
+COPY ./core/res ./
+RUN \
+  # Ensure linux format & proper rights on home resources & copy to real home folder
+  find ./ -type f -exec dos2unix {} \; && \
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./ && chmod 755 -R ./ && \
+  cp -ar . /home/${ENKLUM_USERNAME}
+
+# ---- CMD ----
 COPY ./shared/cmd /enklum/cmd
 RUN \
   # Ensure linux format of setup stuff
@@ -106,3 +114,7 @@ USER ${ENKLUM_USERNAME}
 
 ENTRYPOINT ["/sbin/tini", "--", "/enklum/cmd/entrypoint.sh"]
 # CMD ["/bin/sh", "-c", "sleep infinity"]
+
+# FROM core as tools_installs
+
+# COPY source dest
