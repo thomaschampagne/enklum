@@ -30,7 +30,7 @@ if ($containerRunning) {
 
 Write-Host "Connecting to $container_name."
 podman exec -it $container_name zsh -ic "zellij"
-# Or: podman exec -it enklum zsh
+# podman exec -it $container_name zsh
 
 # TODO Create same script above for bash once ps1 script is finished
 # TODO Update readme.md according ps1 & sh cli scripts created and todo above done

@@ -44,6 +44,9 @@ jobs:
       - name: Set 'YYYYMMDD' date to "BUILD_DATE_SHORT" env variable
         run: echo "BUILD_DATE_SHORT=$(date +%Y.%m.%d)" >> $GITHUB_ENV
 
+      - name: Set 'OCI_VERSION' as semver v2 (YYYY.MM.DD)
+        run: echo "OCI_VERSION=$(date +%Y.%m.%d)" >> $GITHUB_ENV
+
       - name: Read arg file
         id: args
         run: |
@@ -66,6 +69,7 @@ jobs:
             OCI_APP_NAME=${{ env.OCI_APP_NAME}}
             OCI_REPO_URL=https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}/${{ env.OCI_APP_NAME }}
             OCI_BUILD_DATE=${{ env.BUILD_DATE }}
+            OCI_VERSION=${{ env.OCI_VERSION }}
             ${{ env.build_args }}
           platforms: linux/amd64,linux/arm64
           provenance: false

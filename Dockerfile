@@ -17,6 +17,7 @@ ARG OCI_BASE_IMAGE
 ARG OCI_BASE_IMAGE_URL
 ARG OCI_TITLE
 ARG OCI_DESCRIPTION
+ARG OCI_VERSION
 ARG OCI_MAINTAINER
 ARG OCI_REPO_URL
 ARG OCI_BUILD_DATE
@@ -30,6 +31,7 @@ ENV \
   ENKLUM_GIT_USER_NAME="Smith Black" \
   ENKLUM_GIT_USER_EMAIL="smith@enklum.dev" \
   ENKLUM_DEFAULT_EDITOR="hx" \
+  ENKLUM_VERSION=${OCI_VERSION} \
   TZ="Europe/Paris" \
   TERM="xterm-256color" \
   COLORTERM="truecolor"
@@ -81,18 +83,18 @@ RUN \
   rm -rf /setup
 
 # ---- Cli Tools setup ----
-COPY ./setup/cli /enklum/cli
+COPY ./setup/cmd /enklum/cmd
 RUN \
   # Ensure linux format of setup stuff
-  find /enklum/cli -type f -exec dos2unix {} \; && \
+  find /enklum/cmd -type f -exec dos2unix {} \; && \
   # Ensure proper rights
-  chmod +x -R /enklum/cli
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum/cmd && chmod 755 -R /enklum/cmd
 
 # Switch to default workspace directory
-WORKDIR ${ENKLUM_WORKSPACE_DIR}
+WORKDIR ${DEFAULT_WORKSPACE_DIR}
 
 # Force default user instead of root
 USER ${ENKLUM_USERNAME}
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["/bin/sh", "-c", "sleep infinity"]
+ENTRYPOINT ["/sbin/tini", "--", "/enklum/cmd/entrypoint.sh"]
+# CMD ["/bin/sh", "-c", "sleep infinity"]

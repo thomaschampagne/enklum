@@ -1,12 +1,12 @@
 [tools]
-# Common Cli Tools
+# Base Cli Tools
 sd = "latest"
 ripgrep = "latest"
 fzf = "latest"
 zoxide = "latest"
 starship = "latest"
 
-# Common Tools
+# Base Tools
 helix = "latest"
 neovim = "latest"
 lazygit = "latest"
@@ -14,8 +14,5 @@ yazi = "latest"
 zellij = "latest"
 opencode = "latest"
 
-# Runtimes
-node = "lts"
-
-# LSP
+# Base LSP
 marksman = "latest"

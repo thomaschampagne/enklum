@@ -1,5 +1,3 @@
-# TODO Move resource folder at root /
-
 # Print Banner (@see https://www.patorjk.com/software/taag/)
 echo "                                             ";
 echo "                                             ";
@@ -71,7 +69,7 @@ eval "export EDITOR=${ENKLUM_DEFAULT_EDITOR}"
 
 # Control default PATH variable
 # - Add cli tools
-export PATH="$PATH:/enklum/cli"
+export PATH="$PATH:/enklum/cmd"
 
 # -Add mise
 eval "$(mise activate --shims)" # enable mise in PATH by default
