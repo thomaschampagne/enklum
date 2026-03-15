@@ -196,12 +196,11 @@ MIT License — see [LICENSE](LICENSE) file.
 - [x] Map lazygit editor to helix
 
 ## Project and CI/CD
-- [ ] Easy user custom tools & config from base tools+config => Will be improved later with mise env files ?
+- [ ] Easy user custom tools & config from base tools+config => Will be improved later with mise env files ? @P1
 - [ ] Set up GitHub CI workflows @P1
 - [ ] Write a comprehensive README @P1
 - [ ] Fix wrong time in container
 - [ ] rename zsh script extension as .zsh @P2
-- [ ] Move resources folder at project root / @P1
 - [ ] Once stable recreate bare empty enklum github project
 
 ### Notes

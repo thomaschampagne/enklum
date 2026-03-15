@@ -1,4 +1,5 @@
-# @see https://mise.jdx.dev/lang/node.html#default-node-packages
+# @see <https://mise.jdx.dev/lang/node.html#default-node-packages>
+
 typescript@latest
 prettier@latest
 vscode-langservers-extracted@latest
