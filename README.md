@@ -16,6 +16,33 @@ From the French word **"enclume"** for **anvil** is a ready-to-use containerized
 - **Batteries included** — Dev tools, network utilities, and monitoring out of the box
 - **Extensible** — Add languages and runtimes with a single command via mise
 
+## Why not devcontainers
+
+<!-- TODO Merge with Why ENKLUM? -->
+
+[Dev Containers](https://containers.dev/) (formerly Remote - Containers) are great for project-specific, VS Code / JetBrains centric development environments. ENKLUM takes a different approach:
+
+| Feature | Dev Containers | ENKLUM |
+| ------- | --------------- | ------ |
+| **Editor/IDE** | Requires VS Code / JetBrains | Works with any editor (Helix, Neovim, Emacs, etc.) |
+| **Use case** | Project-specific setup | Personal, cross-project development environment |
+| **Tool management** | Per-project `.devcontainer.json` | [mise](https://mise.run/) for global tool versioning |
+| **Base image** | You build from scratch each time | Pre-built, customizable base image |
+| **Workflow** | Attach to container per project | Run your environment anywhere |
+
+### When to choose ENKLUM
+
+- You prefer terminal-driven workflows (ZSH, Zellij, Helix/Neovim)
+- You want a consistent personal environment across machines and projects
+- You need a portable dev environment that works with Docker, Podman, or Kubernetes
+- You want full control over your toolchain with mise
+
+### When devcontainers make sense
+
+- Your team requires VS Code with standardized project configurations
+- The project has specific container requirements checked in with the code
+- You need tight VS Code extension integration
+
 ## 📋 Prerequisites
 
 ### Nerd Font Required

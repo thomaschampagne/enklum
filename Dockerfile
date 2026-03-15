@@ -91,7 +91,7 @@ RUN \
   chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum/cmd && chmod 755 -R /enklum/cmd
 
 # Switch to default workspace directory
-WORKDIR ${DEFAULT_WORKSPACE_DIR}
+WORKDIR ${ENKLUM_WORKSPACE_DIR}
 
 # Force default user instead of root
 USER ${ENKLUM_USERNAME}

@@ -4,7 +4,7 @@ set -e
 set -o pipefail
 
 echo "============================================================"
-echo "exec \"$(basename "$0")\" script as script as \"$(whoami)\" user"
+echo "exec \"$(basename "$0")\" as \"$(whoami)\" user"
 echo "============================================================"
 
 # Install default mise configuration
