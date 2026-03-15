@@ -57,7 +57,8 @@ jobs:
       - name: Push to Github Container Registry
         uses: docker/build-push-action@v7 # https://github.com/marketplace/actions/build-and-push-docker-images
         with:
-          context: ./${{ env.OCI_APP_NAME }}
+          context: .
+          file: ./Dockerfile
           build-args: |
             OCI_APP_NAME=${{ env.OCI_APP_NAME}}
             OCI_REPO_URL=https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}/${{ env.OCI_APP_NAME }}
