@@ -17,7 +17,6 @@ dnf install -y --setopt=install_weak_deps=False \
   libicu \
   util-linux \
   shadow-utils \
-  tini \
   gcc \
   gettext \
   less \

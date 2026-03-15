@@ -118,6 +118,7 @@ $runner build \
   --build-arg OCI_BUILD_DATE="$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
   --build-arg-file "$arg_file_path" \
   --env GITHUB_TOKEN="$github_token" \
+  -f ./core/Dockerfile \
   -t "$image_name:$image_tag" .
 echo "Image built successfully: $image_name:$image_tag"
   
