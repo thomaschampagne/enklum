@@ -68,9 +68,10 @@ RUN \
 COPY ./setup/tools ./tools
 COPY ./resources/home ./resources/home
 RUN \
-  # Ensure linux format of setup stuff
-  find ./tools ./resources/home -type f -exec dos2unix {} \; && \
-  # Ensure proper rights on home resources & copy to real home folder
+  # Ensure linux format & proper rights on tools scripts
+  find ./tools -type f -exec dos2unix {} \; && chmod 755 -R ./tools \
+  # Ensure linux format & proper rights on home resources & copy to real home folder
+  find ./resources/home -type f -exec dos2unix {} \; && \
   chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./resources/home && chmod 755 -R ./resources/home && \
   cp -ar ./resources/home/. /home/${ENKLUM_USERNAME} && \
   # Init tools installations & configuration as user
