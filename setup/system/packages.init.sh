@@ -51,7 +51,6 @@ dnf install -y --setopt=install_weak_deps=False \
   jq \
   yq \
   btop \
-  htop \
   ncdu
 
 echo "Removing unnecessary packages..."
