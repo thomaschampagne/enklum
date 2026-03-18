@@ -1,7 +1,9 @@
 param(
     [string]$container_name = "enklum",
     [string]$image_name = "enklum",
-    [string]$image_tag = "latest"
+    [string]$image_tag = "latest",
+    [string]$username = "smith",
+    [string]$home_volume_path_or_name = "$image_name-$container_name-home"
 )
 
 # TODO Add container runtime docker|podman params to force run with --runner=(podman|docker). If no params given use podman by default then fallback on docker. If podman choosen & available prompt user to start default podman machine if not
@@ -23,6 +25,7 @@ if ($containerRunning) {
         --env-file .env.sample `
         --workdir /workspace `
         --volume "$(pwd):/workspace:delegated" `
+        --volume "${home_volume_path_or_name}:/home/${username}:delegated" `
         --network=host `
         --cap-add=NET_RAW `
         "$image_name`:$image_tag"

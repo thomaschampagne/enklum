@@ -64,8 +64,15 @@ alias lg="lazygit"
 alias zj="zellij"
 alias y="yazi"
 
-# Set default editor for lazygit, yazy,...
+# Set default editor for lazygit, yazy, and system...
 eval "export EDITOR=${ENKLUM_DEFAULT_EDITOR}"
+
+# - Git default username & email
+echo 'git config --global user.name "${ENKLUM_GIT_USER_NAME}"' >> ~/.zshrc
+echo 'git config --global user.email "${ENKLUM_GIT_USER_EMAIL}"' >> ~/.zshrc
+
+# Append zoxide
+eval "$(zoxide init zsh)"
 
 # Control default PATH variable
 # - Add cli tools

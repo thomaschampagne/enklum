@@ -30,7 +30,7 @@ ENV \
   ENKLUM_WORKSPACE_DIR=${ENKLUM_WORKSPACE_DIR} \
   ENKLUM_GIT_USER_NAME="Smith Black" \
   ENKLUM_GIT_USER_EMAIL="smith@enklum.dev" \
-  ENKLUM_DEFAULT_EDITOR="hx" \
+  ENKLUM_DEFAULT_EDITOR="nvim" \
   ENKLUM_VERSION=${OCI_VERSION} \
   TZ="Europe/Paris" \
   TERM="xterm-256color" \
@@ -51,28 +51,26 @@ LABEL \
   org.opencontainers.image.base.url=${OCI_BASE_IMAGE_URL}
 
 # Switch to setup workspace for init & config
-WORKDIR /setup/core/system
+WORKDIR /setup/core/
 
 # ---- Core Init ----
-COPY ./core/system ./
+COPY ./core/ ./
 RUN \
   echo "Creating ENKLUM image from ${OCI_BASE_IMAGE}..." && \
   # Apply system update before anything
   dnf upgrade -y && \
   # And core system package to continue
   dnf install -y dos2unix tini && \
-  # Ensure linux format of setup stuff
+  # Ensure linux format of core stuff
   find ./ -type f -exec dos2unix {} \; && \
   # Init system & os configuration
-  bash ./dnf.install.sh && bash ./os.config.sh
-
-WORKDIR /setup/core/res
-COPY ./core/res ./
-RUN \
-  # Ensure linux format & proper rights on home resources & copy to real home folder
-  find ./ -type f -exec dos2unix {} \; && \
-  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./ && chmod 755 -R ./ && \
-  cp -ar . /home/${ENKLUM_USERNAME}
+  bash ./system/dnf.install.sh && bash ./system/os.config.sh && \
+  # Ensure proper rights on home resources & copy to real home folder
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./res && chmod 755 -R ./res && cp -ar ./res /home/${ENKLUM_USERNAME} && \
+  # Init user base config
+  runuser -u ${ENKLUM_USERNAME} -- bash -ic "./system/user.config.sh" && \
+  # Install core tools as user
+  runuser -u ${ENKLUM_USERNAME} -- bash -ic "./tools/mise.install.sh"
 
 # ---- CMD ----
 COPY ./shared/cmd /enklum/cmd
