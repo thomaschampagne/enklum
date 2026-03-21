@@ -18,19 +18,19 @@ go clean -cache -modcache -testcache
 
 # Helix language config
 if ! grep -q 'name = "go"' ~/.config/helix/languages.toml 2>/dev/null; then
-  cat >> ~/.config/helix/languages.toml << 'EOF'
-  [[language]]
-  name = "go"
-  auto-format = true
-  formatter = { command = "gofumpt" }
-  language-servers = ["gopls"]
+cat >> ~/.config/helix/languages.toml << 'EOF'
+[[language]]
+name = "go"
+auto-format = true
+formatter = { command = "gofumpt" }
+language-servers = ["gopls"]
 
-  [language-server.gopls.config]
-  gofumpt = true
-  staticcheck = true
-  vulncheck = "Imports"
-  usePlaceholders = true
-  completeUnimported = true
+[language-server.gopls.config]
+gofumpt = true
+staticcheck = true
+vulncheck = "Imports"
+usePlaceholders = true
+completeUnimported = true
 
 EOF
 fi

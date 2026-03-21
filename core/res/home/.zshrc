@@ -50,6 +50,7 @@ alias vim="nvim"
 alias h="hx"
 alias lg="lazygit"
 alias zj="zellij"
+alias yz="yazi"
 alias y="yazi"
 
 # - Git default username & email

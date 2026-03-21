@@ -79,7 +79,11 @@ run_feature_installers() {
     done
 
     # Drop feature folder
-    sudo rm -rf "$FEATURES_FOLDER"
+    rm -rf "$FEATURES_FOLDER"
+    echo "Feature folder $FEATURES_FOLDER has been deleted"
+
+    # Reshim any packages from mise
+    mise reshim
 }
 
 run_feature_installers

@@ -55,16 +55,29 @@ ENKLUM uses [Nerd Fonts](https://www.nerdfonts.com/) for icons and glyphs in the
 
 ## 🚀 Quick Start
 
-### Run ENLKUM (Full) from compose sample
+### Compose sample: Full Varient
 
 ```bash
 cp .env.sample .env # Fork env file from sample
 podman compose -f ./sample.enklum.yaml up -d # Start enklum sample 
-podman exec -it enklum-next zsh -ic zellij # Connect on Zellij
+podman exec -it enklum-full zsh -ic zellij # Connect on Zellij
+```
+
+### Custom Variant
+
+- Example with `oh-my-posh` shell enhancer and `go-lang`
+
+```dockerfile
+FROM ghcr.io/thomaschampagne/enklum-core:latest
+
+# Copy wanted features from
+COPY ./features/oh-my-posh ~/.feats/oh-my-posh
+COPY ./features/go ~/.feats/go
+
+RUN bash /enklum/feats.install.sh --features-folder ~/.feats
 ```
 
 <!-- ### Run the Container
-
 ```bash
 podman run -it --hostname enklum enklum
 ```
@@ -225,6 +238,10 @@ MIT License — see [LICENSE](LICENSE) file.
 
 <!--
 # Backlog
+
+## Bugs
+- [ ] Lazygit hunk cpy (ctlr-o) trigger error tried "sudo dnf install xclip wl-clipboard xsel" but still fails
+
 ## Docker and System
 - [ ] Test mounting a volume to `/home/$user` to persist user data @P2
 - [ ] Create a `docker-compose.yml` as a sample

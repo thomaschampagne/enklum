@@ -2,17 +2,19 @@
 theme = "tokyonight"
 
 [editor]
-# Visual settings
 bufferline = "always"      # Show open buffers as tabs at the top (like IDE tabs)
 line-number = "relative"   # Use relative line numbers (easier for vertical jumps like 10j)
 cursorline = true          # Highlight the current line for better visibility
 soft-wrap.enable = true    # Enable visual line wrapping for long lines
+auto-format = true
+trim-final-newlines = true
+trim-trailing-whitespace = true
 
 # Auto-save configuration (Updated according to latest docs)
 [editor.auto-save]
 focus-lost = true          # Save when the terminal loses focus (Alt-Tab)
-# after-delay.enable = true  # Enable time-based auto-save
-# after-delay.timeout = 1000 # Save ms of inactivity (VSCode default is 2 seconds)
+after-delay.enable = true  # Enable time-based auto-save
+after-delay.timeout = 2000 # Save ms of inactivity (VSCode default is 2 seconds)
 
 [editor.statusline]
 right = ["diagnostics", "selections", "register", "position-percentage", "position", "file-encoding", "file-line-ending", "file-type"]
