@@ -1,14 +1,13 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 # Defaults
 arg_file_path="./argfile.default.conf"
 github_token=""
 image_name="enklum"
 image_tag="latest"
-docker_file=./core/Dockerfile
+docker_file=""
 
 # Container runtime selection: docker or podman. Defaults to podman if available, otherwise docker.
 runner=""

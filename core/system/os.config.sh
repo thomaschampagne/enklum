@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 ### Assert Envs Properly set ###
 : "${ENKLUM_USERNAME:?Environment variable ENKLUM_USERNAME is not set}"

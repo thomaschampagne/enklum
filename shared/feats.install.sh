@@ -2,8 +2,48 @@
 
 set -euo pipefail
 
+FEATURES_FOLDER=""
+
+show_help() {
+    cat << 'EOF'
+Usage: $0 [--features-folder PATH] [--help]
+
+Options:
+  --features-folder PATH   Set features folder path (required)
+  --help                   Show this help message
+EOF
+    exit 0
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --features-folder=*)
+            FEATURES_FOLDER="${1#*=}"
+            shift
+            ;;
+        --features-folder)
+            FEATURES_FOLDER="$2"
+            shift 2
+            ;;
+        -h|--help)
+            show_help
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            echo "Use --help for usage information" >&2
+            exit 1
+            ;;
+    esac
+done
+
+if [ -z "$FEATURES_FOLDER" ]; then
+    echo "Error: --features-folder is required" >&2
+    echo "Use --help for usage information" >&2
+    exit 1
+fi
+
 run_feature_installers() {
-    local root_folder="${1:?Usage: run_feature_installers <root_folder>}"
+    local root_folder="${FEATURES_FOLDER:?Usage: run_feature_installers <root_folder>}"
     local username="${ENKLUM_USERNAME:-}"
     local -a scripts=()
 
@@ -35,9 +75,11 @@ run_feature_installers() {
 
     for script in "${sorted_scripts[@]}"; do
         echo "Running: $script"
-        # bash "$script"
         sudo runuser -u ${ENKLUM_USERNAME} -- bash -c "$script"
     done
+
+    # Drop feature folder
+    sudo rm -rf "$FEATURES_FOLDER"
 }
 
-run_feature_installers /setup/features
+run_feature_installers

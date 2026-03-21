@@ -11,7 +11,7 @@ ARG OCI_REPO_URL=https://github.com/thomaschampagne/enklum
 ARG OCI_DESCRIPTION="A portable Fedora terminal-driven development forge"
 ARG OCI_MAINTAINER="Thomas Champagne"
 
-FROM ${OCI_BASE_IMAGE}
+FROM ${OCI_BASE_IMAGE} as core
 
 ARG OCI_BASE_IMAGE
 ARG OCI_BASE_IMAGE_URL
@@ -30,7 +30,7 @@ ENV \
   ENKLUM_WORKSPACE_DIR=${ENKLUM_WORKSPACE_DIR} \
   ENKLUM_GIT_USER_NAME="Smith Black" \
   ENKLUM_GIT_USER_EMAIL="smith@enklum.dev" \
-  ENKLUM_DEFAULT_EDITOR="hx" \
+  ENKLUM_DEFAULT_EDITOR="nvim" \
   ENKLUM_VERSION=${OCI_VERSION} \
   TZ="Europe/Paris" \
   TERM="xterm-256color" \
@@ -51,44 +51,36 @@ LABEL \
   org.opencontainers.image.base.url=${OCI_BASE_IMAGE_URL}
 
 # Switch to setup workspace for init & config
-WORKDIR /setup
+WORKDIR /setup/core/
 
-# ---- System Init ----
-COPY ./setup/system/ ./system/
+# ---- Core Init ----
+COPY ./core/ ./
 RUN \
-  echo "Creating ENKLUM image from ${OCI_BASE_IMAGE}.." && \
+  echo "Creating ENKLUM image from ${OCI_BASE_IMAGE}..." && \
   # Apply system update before anything
   dnf upgrade -y && \
   # And core system package to continue
-  dnf install -y dos2unix && \
-  # Ensure linux format of setup stuff
-  find ./system -type f -exec dos2unix {} \; && \
+  dnf install -y dos2unix tini && \
+  # Ensure linux format of core stuff
+  find ./ -type f -exec dos2unix {} \; && \
   # Init system & os configuration
-  bash ./system/packages.init.sh && bash ./system/os.config.sh
-
-# ---- Base Tools Init ----
-COPY ./setup/tools ./tools
-COPY ./resources/home ./resources/home
-RUN \
-  # Ensure linux format & proper rights on tools scripts
-  find ./tools -type f -exec dos2unix {} \; && chmod -R 755 ./tools && \
-  # Ensure linux format & proper rights on home resources & copy to real home folder
-  find ./resources/home -type f -exec dos2unix {} \; && \
-  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./resources/home && chmod 755 -R ./resources/home && \
-  cp -ar ./resources/home/. /home/${ENKLUM_USERNAME} && \
-  # Init tools installations & configuration as user
-  runuser -u ${ENKLUM_USERNAME} -- zsh -ic "./tools/base/packages.init.sh" && \
-  runuser -u ${ENKLUM_USERNAME} -- zsh -ic "./tools/base/user.config.sh" && \
-  # Clean up
+  bash ./system/dnf.install.sh && bash ./system/os.config.sh && \
+  # Ensure proper rights on home resources & copy to real home folder
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./res && chmod 755 -R ./res && cp -ar ./res/home/. /home/${ENKLUM_USERNAME} && \
+  # Init user base config
+  runuser -u ${ENKLUM_USERNAME} -- bash -c "./system/user.config.sh" && \
+  # Install core tools & config them  as user
+  runuser -u ${ENKLUM_USERNAME} -- bash -c "./tools/tools.install.sh" && runuser -u ${ENKLUM_USERNAME} -- bash -c "./tools/tools.config.sh" && \
+  # Drop setup
   rm -rf /setup
 
-# ---- Cli Tools setup ----
-COPY ./setup/cmd /enklum/cmd
+# ---- CMD ----
+COPY ./shared /enklum
 RUN \
   # Ensure linux format of setup stuff
-  find /enklum/cmd -type f -exec dos2unix {} \; && \
+  find /enklum -type f -exec dos2unix {} \; && \
   # Ensure proper rights
-  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum/cmd && chmod 755 -R /enklum/cmd
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum && chmod 755 -R /enklum
 
 # Switch to default workspace directory
 WORKDIR ${ENKLUM_WORKSPACE_DIR}
@@ -97,4 +89,3 @@ WORKDIR ${ENKLUM_WORKSPACE_DIR}
 USER ${ENKLUM_USERNAME}
 
 ENTRYPOINT ["/sbin/tini", "--", "/enklum/cmd/entrypoint.sh"]
-# CMD ["/bin/sh", "-c", "sleep infinity"]

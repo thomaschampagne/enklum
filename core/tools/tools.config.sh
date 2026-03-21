@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 # Ensure mise is loaded in PATH
 eval "$(mise activate --shims)"

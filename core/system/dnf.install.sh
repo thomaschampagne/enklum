@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 echo "============================================================"
 echo "exec \"$(basename "$0")\" as \"$(whoami)\" user"

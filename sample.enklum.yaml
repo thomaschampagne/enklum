@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
+services:
+  enklum:
+    container_name: ${ENKLUM_CONTAINER_NAME:-enklum-core}
+    image: ${ENKLUM_IMAGE_NAME:-enklum-core}:${ENKLUM_IMAGE_TAG:-latest}
+    hostname: ${ENKLUM_CONTAINER_NAME:-enklum-core}
+    env_file:
+      - .env
+    working_dir: /workspace
+    volumes:
+      # - home-volume:/home/${ENKLUM_USERNAME:-smith}:delegated # TODO restore for samples
+      - ${ENKLUM_WORKSPACE_HOST_PATH:-.}:/workspace:delegated
+    network_mode: host
+    cap_add:
+      - NET_RAW
+    stdin_open: true
+    tty: true
+
+volumes:
+  home-volume:
+    name: ${ENKLUM_HOME_VOLUME:-enklum-core-home}
+
+# volumes:
+# enklum-core-home: # Declare the default volume name
+# volumes:
+# - ${ENKLUM_HOME_VOLUME:-enklum-core-home}:/home/${ENKLUM_USERNAME:-smith}:delegated
+# ${ENKLUM_HOME_VOLUME:-${ENKLUM_CONTAINER_NAME}-home}:

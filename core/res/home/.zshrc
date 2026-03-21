@@ -1,10 +1,5 @@
 # Print Banner (@see https://www.patorjk.com/software/taag/)
-echo "                                             ";
-echo "                                             ";
-echo "██████ ███  ██ ██ ▄█▀ ██     ██  ██ ██▄  ▄██ ";
-echo "██▄▄   ██ ▀▄██ ████   ██     ██  ██ ██ ▀▀ ██ ";
-echo "██▄▄▄▄ ██   ██ ██ ▀█▄ ██████ ▀████▀ ██    ██ ";
-echo "                                             ";
+echo ">_ 🅽🆅🅸🅻";
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -35,13 +30,6 @@ bindkey '^[[1;5D' backward-word # Ctrl + Left Arrow  (^[[1;5D) → jump backward
 bindkey '^[[1;5C' forward-word # Ctrl + Right Arrow (^[[1;5C) → jump forward one word
 bindkey '^[[1;3D' backward-word # Alt + Left Arrow  (^[[1;3D) → jump backward one word
 bindkey '^[[1;3C' forward-word # Alt + Right Arrow (^[[1;3C) → jump forward one word
-# bindkey '^R' history-incremental-search-backward
-
-# TODO Drop cause of shift tab not working ??!!
-# Shift + Left Arrow  (^[[1;2D) → move cursor left
-# bindkey '^[[1;2D' backward-char
-# Shift + Right Arrow (^[[1;2C) → move cursor right
-# bindkey '^[[1;2C' forward-char
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 # Load requirements
 source /enklum/feats.require.sh
@@ -13,6 +12,9 @@ mise use -g go@latest
 go install golang.org/x/tools/gopls@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install mvdan.cc/gofumpt@latest
+
+# Clean cache to reduc image size
+go clean -cache -modcache -testcache
 
 # Helix language config
 if ! grep -q 'name = "go"' ~/.config/helix/languages.toml 2>/dev/null; then

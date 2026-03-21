@@ -1,34 +1,38 @@
 <pre align="center">
   
-██████ ███  ██ ██ ▄█▀ ██     ██  ██ ██▄  ▄██ 
-██▄▄   ██ ▀▄██ ████   ██     ██  ██ ██ ▀▀ ██ 
-██▄▄▄▄ ██   ██ ██ ▀█▄ ██████ ▀████▀ ██    ██ 
+██████ ███  ██ ██ ▄█▀ ██     ██  ██ ██▄  ▄██
+██▄▄   ██ ▀▄██ ████   ██     ██  ██ ██ ▀▀ ██
+██▄▄▄▄ ██   ██ ██ ▀█▄ ██████ ▀████▀ ██    ██
   
 A portable Fedora terminal-driven development forge
 </pre>
+
+<!-- TODO Rename to "nvil" | "nvl" for anvil ?? or nklum ?? -->
 
 From the French word **"enclume"** for **anvil** is a ready-to-use containerized development environment on Fedora. It provides a terminal-first forge with all the tools developers need to code, debug, and ship without the hassle of setting up a new machine.
 
 ## 🛠️ Why ENKLUM?
 
-- **Portable** — Runs anywhere Docker/Podman/K8s/... runs
-- **Terminal-first** — ZSH, Starship prompt, Zellij, Helix/Neovim, Yazi, and keyboard-driven tools
+ENKLUM is a portable, terminal-first development environment built for developers who value consistency, speed, and full control over their toolchain.
+
+**Core strengths:**
+
+- **Portable** — Runs anywhere Docker, Podman, or Kubernetes runs
+- **Terminal-first** — Developer Shell: ZSH, Zellij, Helix/Neovim, Yazi, and keyboard-driven tools
 - **Batteries included** — Dev tools, network utilities, and monitoring out of the box
-- **Extensible** — Add languages and runtimes with a single command via mise
+- **Extensible** — Add languages and runtimes with a single command via [mise](https://mise.run/)
 
-## Why not devcontainers
+### Why not Dev Containers?
 
-<!-- TODO Merge with Why ENKLUM? -->
+[Dev Containers](https://containers.dev/) (VS Code / JetBrains) are excellent for project-specific setups. ENKLUM takes a different approach:
 
-[Dev Containers](https://containers.dev/) (formerly Remote - Containers) are great for project-specific, VS Code / JetBrains centric development environments. ENKLUM takes a different approach:
-
-| Feature | Dev Containers | ENKLUM |
-| ------- | --------------- | ------ |
-| **Editor/IDE** | Requires VS Code / JetBrains | Works with any editor (Helix, Neovim, Emacs, etc.) |
-| **Use case** | Project-specific setup | Personal, cross-project development environment |
-| **Tool management** | Per-project `.devcontainer.json` | [mise](https://mise.run/) for global tool versioning |
-| **Base image** | You build from scratch each time | Pre-built, customizable base image |
-| **Workflow** | Attach to container per project | Run your environment anywhere |
+| | Dev Containers | ENKLUM |
+| --- | --- | --- |
+| **Editor** | Requires VS Code / JetBrains | Works with any editor |
+| **Scope** | Per-project configuration | Personal, cross-project environment |
+| **Tool management** | `.devcontainer.json` per project | Global versioning with mise |
+| **Base image** | Built from scratch each time | Pre-built, customizable image |
+| **Workflow** | Attach to container per project | Your environment, anywhere |
 
 ### When to choose ENKLUM
 
@@ -37,7 +41,7 @@ From the French word **"enclume"** for **anvil** is a ready-to-use containerized
 - You need a portable dev environment that works with Docker, Podman, or Kubernetes
 - You want full control over your toolchain with mise
 
-### When devcontainers make sense
+### When Dev Containers make sense
 
 - Your team requires VS Code with standardized project configurations
 - The project has specific container requirements checked in with the code
@@ -51,7 +55,15 @@ ENKLUM uses [Nerd Fonts](https://www.nerdfonts.com/) for icons and glyphs in the
 
 ## 🚀 Quick Start
 
-### Run the Container
+### Run ENLKUM (Full) from compose sample
+
+```bash
+cp .env.sample .env # Fork env file from sample
+podman compose -f ./sample.enklum.yaml up -d # Start enklum sample 
+podman exec -it enklum-next zsh -ic zellij # Connect on Zellij
+```
+
+<!-- ### Run the Container
 
 ```bash
 podman run -it --hostname enklum enklum
@@ -73,9 +85,11 @@ Or with custom options:
 
 ```bash
 podman run -it --hostname enklum -v $(pwd):/workspace enklum
-```
+``` -->
 
 ## 📦 What's Included
+
+<!-- TODO Update along core pkgs -->
 
 | Category | Package                             | Source | Description               |
 | -------- | ----------------------------------- | ------ | ------------------------- |
@@ -118,6 +132,8 @@ podman run -it --hostname enklum -v $(pwd):/workspace enklum
 | Terminal | yazi                                | mise   | TUI file manager.         |
 | Terminal | zellij                              | mise   | Terminal multiplexer.     |
 
+<!-- TODO We may add variants here -->
+
 ## 🧰 ENKLUM CLI
 
 ENKLUM includes a built-in CLI tool for common tasks:
@@ -136,7 +152,7 @@ Options:
   --list-pkgs    List available packages & tools
   --help         Show this help message and exit
 ```
-
+<!-- 
 ## ⚙️ Customize the Image
 
 ### Environment Variables
@@ -152,16 +168,19 @@ cp .env.sample .env
 | `ENKLUM_GIT_USER_NAME` | `Smith Black` | Git user name |
 | `ENKLUM_GIT_USER_EMAIL` | <smith@enklum.dev> | Git user email |
 | `ENKLUM_DEFAULT_EDITOR` | `hx` | Default editor (`hx`, `nvim`, `emacs`, `nano`, `vi`) |
-| `TZ` | Europe/Paris | Timezone |
+| `TZ` | Europe/Paris | Timezone | -->
 
-### Custom Username
+<!-- ### Custom Username
 
 The default user is **smith** (paying homage to the blacksmith and anvil heritage). You can change it at build time via `argfile.default.conf`:
 
 ```bash
 ENKLUM_USERNAME=myuser
-ENKLUM_WORKSPACE_DIR=/home/myuser/workspace
-```
+ENKLUM_WORKSPACE_DIR=//workspace
+``` -->
+
+<!-- 
+TODO See features instead
 
 ### Add Languages & Tools with mise
 
@@ -179,9 +198,9 @@ mise use -g deno@latest
 mise install -g terraform
 mise install -g kubectl
 mise install -g docker
-```
+``` -->
 
-### Extend the Base Image
+<!-- ### Extend the Base Image
 
 After customizing, copy your mise config to extend the base image:
 
@@ -199,7 +218,7 @@ Then build your custom image:
 ```bash
 podman build -t my-custom-enklum .
 ```
-
+ -->
 ## 📜 License
 
 MIT License — see [LICENSE](LICENSE) file.
