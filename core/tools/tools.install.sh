@@ -25,6 +25,3 @@ mise use -g marksman@latest
 
 # Clear cache
 mise cache clear
-
-# Assert mise working properly setup
-# mise doctor

@@ -8,6 +8,7 @@ arg_file_path="./argfile.default.conf"
 github_token=""
 image_name="enklum"
 image_tag="latest"
+docker_file=./core/Dockerfile
 
 # Container runtime selection: docker or podman. Defaults to podman if available, otherwise docker.
 runner=""
@@ -15,14 +16,15 @@ runner=""
 # Help message
 show_help() {
     cat << 'EOF'
-Usage: $0 [--image-name NAME] [--image-tag TAG] [--arg-file PATH] [--gh-token TOKEN] [--runner RUNNER] [--help]
+Usage: $0 [--image-name NAME] [--image-tag TAG] [--arg-file PATH] [--gh-token TOKEN] [--runner RUNNER] [--docker-file FILE] [--help]
 
 Options:
   --image-name NAME     Set image name (default: enklum)
   --image-tag TAG       Set image tag (default: latest)
   --arg-file PATH       Set arg file path (default: ./argfile.default.conf)
-  --gh-token TOKEN  Set GitHub token (default: empty)
+  --gh-token TOKEN      Set GitHub token (default: empty)
   --runner RUNNER       Container runner to use (docker or podman). If not specified, uses podman if available, otherwise docker.
+  --docker-file FILE    Set Dockerfile path (default: ./core/Dockerfile)
   --help                Show this help message
 EOF
     exit 0
@@ -49,6 +51,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --runner=*)
             runner="${1#*=}"
+            shift
+            ;;
+        --docker-file=*)
+            docker_file="${1#*=}"
             shift
             ;;
         --image-name)
@@ -118,7 +124,7 @@ $runner build \
   --build-arg OCI_BUILD_DATE="$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
   --build-arg-file "$arg_file_path" \
   --env GITHUB_TOKEN="$github_token" \
-  -f ./core/Dockerfile \
+  -f "$docker_file" \
   -t "$image_name:$image_tag" .
 echo "Image built successfully: $image_name:$image_tag"
   

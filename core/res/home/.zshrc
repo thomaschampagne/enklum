@@ -64,20 +64,18 @@ alias lg="lazygit"
 alias zj="zellij"
 alias y="yazi"
 
+# - Git default username & email
+git config --global user.name "${ENKLUM_GIT_USER_NAME}"
+git config --global user.email "${ENKLUM_GIT_USER_EMAIL}"
+
+# Control default PATH variable
 # Set default editor for lazygit, yazy, and system...
 eval "export EDITOR=${ENKLUM_DEFAULT_EDITOR}"
-
-# - Git default username & email
-echo 'git config --global user.name "${ENKLUM_GIT_USER_NAME}"' >> ~/.zshrc
-echo 'git config --global user.email "${ENKLUM_GIT_USER_EMAIL}"' >> ~/.zshrc
+# - Add cli tools
+export PATH="$PATH:/enklum/cmd"
+# - Add mise (below export PATH)
+eval "$(mise activate --shims)" # enable mise in PATH by default
 
 # Append zoxide
 eval "$(zoxide init zsh)"
-
-# Control default PATH variable
-# - Add cli tools
-export PATH="$PATH:/enklum/cmd"
-
-# -Add mise
-eval "$(mise activate --shims)" # enable mise in PATH by default
 

@@ -66,19 +66,21 @@ RUN \
   # Init system & os configuration
   bash ./system/dnf.install.sh && bash ./system/os.config.sh && \
   # Ensure proper rights on home resources & copy to real home folder
-  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./res && chmod 755 -R ./res && cp -ar ./res /home/${ENKLUM_USERNAME} && \
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./res && chmod 755 -R ./res && cp -ar ./res/home/. /home/${ENKLUM_USERNAME} && \
   # Init user base config
-  runuser -u ${ENKLUM_USERNAME} -- bash -ic "./system/user.config.sh" && \
-  # Install core tools as user
-  runuser -u ${ENKLUM_USERNAME} -- bash -ic "./tools/mise.install.sh"
+  runuser -u ${ENKLUM_USERNAME} -- bash -c "./system/user.config.sh" && \
+  # Install core tools & config them  as user
+  runuser -u ${ENKLUM_USERNAME} -- bash -c "./tools/tools.install.sh" && runuser -u ${ENKLUM_USERNAME} -- bash -c "./tools/tools.config.sh"
+# TODO Add tools core config (e.g. config zoxide) + yazy configured
+# TODO ... then Drop core setup folder
 
 # ---- CMD ----
-COPY ./shared/cmd /enklum/cmd
+COPY ./shared /enklum
 RUN \
   # Ensure linux format of setup stuff
-  find /enklum/cmd -type f -exec dos2unix {} \; && \
+  find /enklum -type f -exec dos2unix {} \; && \
   # Ensure proper rights
-  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum/cmd && chmod 755 -R /enklum/cmd
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum && chmod 755 -R /enklum
 
 # # ---- Base Tools Init ----
 # COPY ./setup/tools ./tools
