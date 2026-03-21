@@ -1,4 +1,4 @@
-# Overridden from argfile.default.conf through CI & image.build.sh
+# Overridden from args-build-file.default.conf through CI & image.build.sh
 ARG ENKLUM_FEDORA_BASE_VERSION=latest
 ARG ENKLUM_USERNAME="smith"
 ARG ENKLUM_WORKSPACE_DIR="/workspace"

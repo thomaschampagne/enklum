@@ -9,7 +9,7 @@ on:
       arg_file:
         description: "Path to arg file (default: ./argfile.default.conf)"
         required: false
-        default: "./argfile.default.conf"
+        default: "./args-build-file.default.conf"
   push:
     branches:
       - main
@@ -50,7 +50,7 @@ jobs:
       - name: Read arg file
         id: args
         run: |
-          ARG_FILE="${{ github.event.inputs.arg_file || 'argfile.default.conf' }}"
+          ARG_FILE="${{ github.event.inputs.arg_file || 'args-build-file.default.conf' }}"
           if [ -f "$ARG_FILE" ]; then
             echo "build_args<<EOF" >> $GITHUB_ENV
             grep -v '^#' "$ARG_FILE" | grep -v '^$' >> $GITHUB_ENV

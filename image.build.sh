@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Defaults
-arg_file_path="./argfile.default.conf"
+arg_file_path="./args-build-file.default.conf"
 github_token=""
 image_name=""
 image_tag="latest"
@@ -20,7 +20,7 @@ Usage: $0 [--image-name NAME] [--image-tag TAG] [--arg-file PATH] [--gh-token TO
 Options:
   --image-name NAME     Set image name (default: enklum)
   --image-tag TAG       Set image tag (default: latest)
-  --arg-file PATH       Set arg file path (default: ./argfile.default.conf)
+  --arg-file PATH       Set arg file path (default: ./args-build-file.default.conf)
   --gh-token TOKEN      Set GitHub token (default: empty)
   --runner RUNNER       Container runner to use (docker or podman). If not specified, uses podman if available, otherwise docker.
   --docker-file FILE    Set Dockerfile path (default: ./core/Dockerfile)

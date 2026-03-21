@@ -1,4 +1,7 @@
+# TODO Try to add below to default schema when using docker ?
 # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
+version: "3"
 
 services:
   enklum:

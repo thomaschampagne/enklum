@@ -25,11 +25,12 @@ if ($containerRunning) {
         --env-file .env.sample `
         --workdir /workspace `
         --volume "$(pwd):/workspace:delegated" `
-        --volume "${home_volume_path_or_name}:/home/${username}:delegated" `
         --network=host `
         --cap-add=NET_RAW `
         "$image_name`:$image_tag"
 }
+
+# --volume "${home_volume_path_or_name}:/home/${username}:delegated" 
 
 Write-Host "Connecting to $container_name."
 podman exec -it $container_name zsh -ic "zellij"
@@ -49,7 +50,7 @@ podman exec -it $container_name zsh -ic "zellij"
 # $Date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 # podman build `
 #   --build-arg OCI_BUILD_DATE=$Date `
-#   --build-arg-file argfile.default.conf `
+#   --build-arg-file args-build-file.default.conf `
 #   -t enklum:dev .
 
 # # Run the container

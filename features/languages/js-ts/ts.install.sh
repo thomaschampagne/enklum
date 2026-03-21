@@ -5,8 +5,8 @@ set -euo pipefail
 # Load requirements
 source /enklum/feats.require.sh
 
-# Install Runtime
-mise use -g node@lts
+# Require node install
+require_feature "../../runtimes/node-lts/node-lts.install.sh"
 
 # Required dependencies
 npm install -g \

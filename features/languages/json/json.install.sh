@@ -5,11 +5,8 @@ set -euo pipefail
 # Load requirements
 source /enklum/feats.require.sh
 
-# Install Runtime
-mise use -g node@lts
-
-# Required dependencies
-npm install -g npm@latest
+# Require node install
+require_feature "../../runtimes/node-lts/node-lts.install.sh"
 
 # Install JSON LSP
 npm install -g vscode-langservers-extracted@latest

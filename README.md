@@ -7,8 +7,6 @@
 A portable Fedora terminal-driven development forge
 </pre>
 
-<!-- TODO Rename to "nvil" | "nvl" for anvil ?? or nklum ?? -->
-
 From the French word **"enclume"** for **anvil** is a ready-to-use containerized development environment on Fedora. It provides a terminal-first forge with all the tools developers need to code, debug, and ship without the hassle of setting up a new machine.
 
 ## 🛠️ Why ENKLUM?
@@ -59,8 +57,14 @@ ENKLUM uses [Nerd Fonts](https://www.nerdfonts.com/) for icons and glyphs in the
 
 ```bash
 cp .env.sample .env # Fork env file from sample
-podman compose -f ./sample.enklum.yaml up -d # Start enklum sample 
+# podman compose -f ./sample.compose.yaml run --rm enklum zsh # Start enklum sample 
+# podman compose -f ./sample.compose.yaml run --entrypoint "zsh -ic zellij" enklum
+
+podman compose -f ./sample.compose.yaml down # Kill existing
+podman compose -f ./sample.compose.yaml up -d # Start enklum sample 
 podman exec -it enklum-full zsh -ic zellij # Connect on Zellij
+
+# podman compose exec enklum zsh -ic zellij # Connect on Zellij
 ```
 
 ### Custom Variant
@@ -185,7 +189,7 @@ cp .env.sample .env
 
 <!-- ### Custom Username
 
-The default user is **smith** (paying homage to the blacksmith and anvil heritage). You can change it at build time via `argfile.default.conf`:
+The default user is **smith** (paying homage to the blacksmith and anvil heritage). You can change it at build time via `args-build-file.default.conf`:
 
 ```bash
 ENKLUM_USERNAME=myuser
@@ -239,22 +243,44 @@ MIT License — see [LICENSE](LICENSE) file.
 <!--
 # Backlog
 
+## Triage
+
+TODO Rename to "NVIL" for anvil? or NKLM ??
+
+# TODO Install mise tools inside system and not under home ? to get mise tools integrity linked to each image build ???
+
+# TODO DAP
+- typescript
+
+# TODO Formatter
+- css + scss
+- html
+
+# TODO LSP
+- dockerfile	✓	✓		docker-langserver => npm install -g dockerfile-language-server-nodejs
+- docker-compose	✓	✓	✓	docker-compose-langserver, yaml-language-server
+- dot file
+- ---
+- clang
+- rust
+- python + uv
+
 ## Bugs
 - [ ] Lazygit hunk cpy (ctlr-o) trigger error tried "sudo dnf install xclip wl-clipboard xsel" but still fails
 
 ## Docker and System
-- [ ] Test mounting a volume to `/home/$user` to persist user data @P2
+- [x] Test mounting a volume to `/home/$user` to persist user data
 - [ ] Create a `docker-compose.yml` as a sample
 - [ ] Add ssh server access @P2
 
 ## CLI and Shell
-- [ ] Configure `starship` environment to choose a template preset @P2
+- [ ] Configure `ohmyposh` environment to choose a template preset @P2
 - [ ] Add git-crypt ?
-- [ ] Add ohmyposh support (https://ohmyposh.dev/docs/themes) @P2
+- [ ] Add starship support feature
 
 ## Helix Editor
 - [x] Map custom Helix configurations
-- [ ] Set up language servers for base runtimes
+- [x] Set up language servers for base runtimes
 - [ ] Integrate `yazi` file manager with Helix => Open Yazi when opening helix file explorer
 - [x] Map lazygit editor to helix
 
