@@ -20,7 +20,7 @@ ARG ENKLUM_FLAVOR="full"
 LABEL \
   enklum.flavor=${ENKLUM_FLAVOR}
 
-RUN /enklum/cmd/enklum --update
+RUN bash -c "/enklum/cmd/enklum --update"
 
 COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   # #### COPY OF BELOW HOST FOLDERS #####
