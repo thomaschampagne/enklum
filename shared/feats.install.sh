@@ -75,7 +75,8 @@ run_feature_installers() {
 
     for script in "${sorted_scripts[@]}"; do
         echo "Running: $script"
-        runuser -u ${ENKLUM_USERNAME} -- bash -c "$script"
+        bash $script
+        # runuser -u ${ENKLUM_USERNAME} -- bash -c "$script"
     done
 
     # Drop feature folder

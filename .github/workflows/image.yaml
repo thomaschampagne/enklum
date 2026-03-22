@@ -58,25 +58,25 @@ jobs:
           else
             echo "Arg file not found: $ARG_FILE"
           fi
-      # TODO UNCOMMENT
-      # # Push to GitHub Container Registry
-      # - name: Build/Push enklum-core to Github Container Registry
-      #   uses: docker/build-push-action@v7 # https://github.com/marketplace/actions/build-and-push-docker-images
-      #   with:
-      #     context: .
-      #     file: ./core/core.Dockerfile
-      #     build-args: |
-      #       OCI_APP_NAME=${{ env.OCI_APP_NAME}}
-      #       OCI_REPO_URL=https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}/${{ env.OCI_APP_NAME }}
-      #       OCI_BUILD_DATE=${{ env.BUILD_DATE }}
-      #       OCI_VERSION=${{ env.OCI_VERSION }}
-      #       ${{ env.build_args }}
-      #     platforms: linux/amd64,linux/arm64
-      #     provenance: false
-      #     push: true
-      #     tags: |
-      #       ghcr.io/${{ github.repository_owner }}/enklum-core:latest
-      #       ghcr.io/${{ github.repository_owner }}/enklum-core:${{ env.BUILD_DATE_SHORT }}
+
+      # Push to GitHub Container Registry
+      - name: Build/Push enklum-core to Github Container Registry
+        uses: docker/build-push-action@v7 # https://github.com/marketplace/actions/build-and-push-docker-images
+        with:
+          context: .
+          file: ./core/core.Dockerfile
+          build-args: |
+            OCI_APP_NAME=${{ env.OCI_APP_NAME}}
+            OCI_REPO_URL=https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}/${{ env.OCI_APP_NAME }}
+            OCI_BUILD_DATE=${{ env.BUILD_DATE }}
+            OCI_VERSION=${{ env.OCI_VERSION }}
+            ${{ env.build_args }}
+          platforms: linux/amd64,linux/arm64
+          provenance: false
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/enklum-core:latest
+            ghcr.io/${{ github.repository_owner }}/enklum-core:${{ env.BUILD_DATE_SHORT }}
 
       - name: Build/Push enklum-full to Github Container Registry
         uses: docker/build-push-action@v7
