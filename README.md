@@ -53,7 +53,7 @@ ENKLUM uses [Nerd Fonts](https://www.nerdfonts.com/) for icons and glyphs in the
 
 ## 🚀 Quick Start
 
-### Compose sample: Full Variants
+### Compose Sample
 
 ```bash
 cp .env.sample .env # Fork env file from sample
@@ -230,7 +230,7 @@ podman run -it --hostname enklum -v $(pwd):/workspace enklum
 | Terminal | yazi                                | mise   | TUI file manager.         |
 | Terminal | zellij                              | mise   | Terminal multiplexer.     |
 
-<!-- TODO We may add variants here -->
+<!-- TODO We may add flavors here -->
 
 ## 🧰 ENKLUM CLI
 

@@ -1,4 +1,4 @@
-FROM ghcr.io/thomaschampagne/enklum-core:latest
+FROM enklum-full:latest
 # FROM enklum-core:latest
 
 # TODO --- [START] IN CORE ----
@@ -13,28 +13,11 @@ FROM ghcr.io/thomaschampagne/enklum-core:latest
 # USER ${ENKLUM_USERNAME}
 # TODO --- [END] IN CORE ----
 
-# TODO Rename folder as "flavors-images"
-
-RUN /enklum/cmd/enklum --update
-
 COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   # #### COPY OF BELOW HOST FOLDERS #####
-  # SHELL Enhancer - oh-my-posh shell enhancer
-  ./features/cli/oh-my-posh \
-  # NodeJS required by many common LSPs (json, yaml, bash, typescript/javascript, ...)
   ./features/runtimes/node-lts \
-  # LSP:json
-  ./features/languages/json \
-  # LSP:yaml
-  ./features/languages/yaml \
-  # LSP:bash
-  ./features/languages/bash \
-  # Node + JS/TS + LSP + Formatter
-  ./features/languages/js-ts \
-  # BunJS
-  ./features/runtimes/bun \
-  # GoLang + LSP + Formatter
-  ./features/languages/golang \
+  #---- # TODO REport back these !
+  #----
   # #### TO IMAGE AT BELOW LOCATION ####
   /home/${ENKLUM_USERNAME}/.tmp/
 
