@@ -1,26 +1,23 @@
-<pre align="center">
+<pre align="center" style="color: lawngreen; background-color: black">
 
-█▄░█ █░█ █ █░░
-█░▀█ ▀▄▀ █ █▄▄
+|\ | \  / | |    
+| \|  \/  | |___ 
 
+A Portable Terminal Development Environment
 </pre>
 
-# ENKLUM: Portable Terminal-Driven Development Environment
+# NVIL: Portable Terminal-Driven Development Environment
 
-ENKLUM (from the French word *enclume*, meaning **anvil**) is a ready-to-use containerized development environment built on Fedora. It provides a terminal-first development workspace with pre-configured tools, so you can start coding immediately without setting up a new machine.
+NVIL (from the word **Anvil**) is a ready-to-use containerized development environment built on Fedora. It provides a terminal-first development workspace with pre-configured tools, so you can start coding immediately without setting up a new machine.
 
-## ✨ What is ENKLUM?
-
-A portable, terminal-first development environment that runs anywhere Docker, Podman, or Kubernetes runs. It comes with a curated set of development tools, network utilities, and monitoring software pre-configured and ready to use.
-
-**Key features:**
+## ✨ Key Features
 
 - **Portable** - Runs anywhere Docker, Podman, or Kubernetes runs
 - **Terminal-first** - ZSH, Zellij, Helix/Neovim, Yazi, and keyboard-driven tools
 - **Batteries included** - Dev tools, network utilities, and monitoring out of the box
 - **Extensible** - Add languages and runtimes with a single command via [mise](https://mise.jdx.dev/)
 
-## 🎯 Why Use ENKLUM?
+## 🎯 Why Use NVIL?
 
 ### For developers who want
 
@@ -31,7 +28,7 @@ A portable, terminal-first development environment that runs anywhere Docker, Po
 
 ### How it compares to Dev Containers
 
-| | Dev Containers | ENKLUM |
+| | Dev Containers | NVIL |
 | --- | --- | --- |
 | **Editor** | Requires VS Code / JetBrains | Works any modal editor |
 | **Scope** | Per-project configuration | Per-project, cross-project or personal environment |
@@ -162,7 +159,7 @@ podman run -it --hostname enklum -v $(pwd):/workspace ghcr.io/thomaschampagne/en
 
 ### Core Packages
 
-"ENKLUM core" comes pre-configured with a comprehensive set of tools:
+"NVIL core" comes pre-configured with a comprehensive set of tools:
 
 | Category | Package | Description |
 |----------|---------|-------------|
@@ -181,7 +178,7 @@ For a complete list, run `enklum --list-pkgs` inside the container.
 
 ### Full Packages
 
-## 🧰 ENKLUM CLI
+## 🧰 NVIL CLI
 
 Inside the container, use the built-in CLI for common tasks:
 
@@ -210,9 +207,9 @@ cp .env.sample .env
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ENKLUM_GIT_USER_NAME` | `Smith Black` | Git user name |
-| `ENKLUM_GIT_USER_EMAIL` | `smith@enklum.dev` | Git user email |
-| `ENKLUM_DEFAULT_EDITOR` | `nvim` | Default editor (`hx`, `nvim`, `emacs`, `nano`, `vi`) |
+| `NVIL_GIT_USER_NAME` | `Smith Black` | Git user name |
+| `NVIL_GIT_USER_EMAIL` | `smith@enklum.dev` | Git user email |
+| `NVIL_DEFAULT_EDITOR` | `nvim` | Default editor (`hx`, `nvim`, `emacs`, `nano`, `vi`) |
 | `TZ` | `Europe/Paris` | Timezone |
 
 ### Custom Username
@@ -220,8 +217,8 @@ cp .env.sample .env
 The default user is **smith** (paying homage to the blacksmith and anvil heritage). Change it at build time via `args-build-file.default.conf`:
 
 ```bash
-ENKLUM_USERNAME=myuser
-ENKLUM_WORKSPACE_DIR=/workspace
+NVIL_USERNAME=myuser
+NVIL_WORKSPACE_DIR=/workspace
 ```
 
 ### Build a Custom Image
