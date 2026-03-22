@@ -3,8 +3,9 @@
 █▄░█ █░█ █ █░░
 █░▀█ ▀▄▀ █ █▄▄
 
-A portable Fedora terminal-driven development forge
 </pre>
+
+# ENKLUM: A Portable Fedora Terminal-Driven Development Forge
 
 From the French word **"enclume"** for **anvil** is a ready-to-use containerized development environment on Fedora. It provides a terminal-first forge with all the tools developers need to code, debug, and ship without the hassle of setting up a new machine.
 
@@ -161,11 +162,6 @@ COPY ./features/go ~/.feats/go
 RUN bash /enklum/feats.install.sh --features-folder ~/.feats
 ```
 
-<!-- ### Run the Container
-```bash
-podman run -it --hostname enklum enklum
-```
-
 ### Build the Image
 
 ```bash
@@ -182,11 +178,11 @@ Or with custom options:
 
 ```bash
 podman run -it --hostname enklum -v $(pwd):/workspace enklum
-``` -->
+```
 
 ## 📦 What's Included
 
-<!-- TODO Update along core pkgs -->
+<!-- TODO Update deprecated list with cmd : enklum --list-pkgs -->
 
 | Category | Package                             | Source | Description               |
 | -------- | ----------------------------------- | ------ | ------------------------- |
@@ -241,7 +237,7 @@ enklum
 
 Output:
 
-```bash
+```
 Usage:  [OPTION]
 
 Options:
@@ -249,7 +245,7 @@ Options:
   --list-pkgs    List available packages & tools
   --help         Show this help message and exit
 ```
-<!-- 
+
 ## ⚙️ Customize the Image
 
 ### Environment Variables
@@ -263,23 +259,20 @@ cp .env.sample .env
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `ENKLUM_GIT_USER_NAME` | `Smith Black` | Git user name |
-| `ENKLUM_GIT_USER_EMAIL` | <smith@enklum.dev> | Git user email |
-| `ENKLUM_DEFAULT_EDITOR` | `hx` | Default editor (`hx`, `nvim`, `emacs`, `nano`, `vi`) |
-| `TZ` | Europe/Paris | Timezone | -->
+| `ENKLUM_GIT_USER_EMAIL` | `smith@enklum.dev` | Git user email |
+| `ENKLUM_DEFAULT_EDITOR` | `nvim` | Default editor (`hx`, `nvim`, `emacs`, `nano`, `vi`) |
+| `TZ` | `Europe/Paris` | Timezone |
 
-<!-- ### Custom Username
+### Custom Username
 
 The default user is **smith** (paying homage to the blacksmith and anvil heritage). You can change it at build time via `args-build-file.default.conf`:
 
 ```bash
 ENKLUM_USERNAME=myuser
-ENKLUM_WORKSPACE_DIR=//workspace
-``` -->
+ENKLUM_WORKSPACE_DIR=/workspace
+```
 
-<!-- 
-TODO See features instead
-
-### Add Languages & Tools with mise
+<!-- ### Add Languages & Tools with mise
 
 ENKLUM uses [mise](https://mise.run/) to manage runtimes and tools. The default configuration is in `setup/resources/home/.config/mise/config.toml`.
 
@@ -295,9 +288,9 @@ mise use -g deno@latest
 mise install -g terraform
 mise install -g kubectl
 mise install -g docker
-``` -->
+```
 
-<!-- ### Extend the Base Image
+### Extend the Base Image
 
 After customizing, copy your mise config to extend the base image:
 
@@ -314,8 +307,8 @@ Then build your custom image:
 
 ```bash
 podman build -t my-custom-enklum .
-```
- -->
+``` -->
+
 ## 📜 License
 
 MIT License — see [LICENSE](LICENSE) file.
