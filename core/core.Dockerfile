@@ -11,7 +11,7 @@ ARG OCI_REPO_URL=https://github.com/thomaschampagne/enklum
 ARG OCI_DESCRIPTION="A portable Fedora terminal-driven development forge"
 ARG OCI_MAINTAINER="Thomas Champagne"
 
-FROM ${OCI_BASE_IMAGE} as core
+FROM ${OCI_BASE_IMAGE}
 
 ARG OCI_BASE_IMAGE
 ARG OCI_BASE_IMAGE_URL
@@ -65,14 +65,12 @@ RUN \
   dnf upgrade -y && \
   # And core system package to continue
   dnf install -y dos2unix tini && \
-  # Ensure linux format of core stuff
-  find ./ -type f -exec dos2unix {} \; && \
-  # Ensure proper rights all core resources for system & user execution
-  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./ && chmod 755 -R ./ && \
+  # Ensure linux format of core stuff & system & user execution
+  find ./ -type f -exec dos2unix {} \; && chmod 755 -R ./ && \
   # Init system & os configuration
   bash ./system/dnf.install.sh && bash ./system/os.config.sh && \
-  # Copy default user home resources before running script as user
-  cp -ar ./res/home/. /home/${ENKLUM_USERNAME} && \
+  # Ensure proper rights on home resources & copy to real home folder before running scripts as user
+  chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./res && cp -ar ./res/home/. /home/${ENKLUM_USERNAME} && \
   # Init user base config
   runuser -u ${ENKLUM_USERNAME} -- bash -c "./system/user.config.sh" && \
   # Install core tools & config them  as user
