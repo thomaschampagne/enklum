@@ -1,5 +1,6 @@
 # Print Banner (@see https://www.patorjk.com/software/taag/)
-echo ">_ 🅽🆅🅸🅻";
+# echo ">_ 🅽🆅🅸🅻";
+# TODO echo the flavor here instead
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile

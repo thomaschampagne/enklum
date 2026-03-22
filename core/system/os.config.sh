@@ -13,6 +13,8 @@ useradd -m -d /home/${ENKLUM_USERNAME} -s /bin/zsh -G wheel ${ENKLUM_USERNAME}
 mkdir -p ${ENKLUM_WORKSPACE_DIR}
 chown -R ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} ${ENKLUM_WORKSPACE_DIR}
 
-# Allow to execute sudo without a password
+# Delete user password & allow to execute sudo without a password
+passwd -d ${ENKLUM_USERNAME}
 echo "${ENKLUM_USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${ENKLUM_USERNAME}
 chmod 0440 /etc/sudoers.d/${ENKLUM_USERNAME}
+
