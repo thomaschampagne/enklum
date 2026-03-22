@@ -45,6 +45,8 @@ COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   ./features/runtimes/bun \
   # GoLang + LSP + Formatter
   ./features/languages/golang \
+  # SSH Server (dropbear)
+  ./features/ssh/dropbear \
   # #### TO IMAGE AT BELOW LOCATION ####
   /home/${ENKLUM_USERNAME}/.tmp/
 

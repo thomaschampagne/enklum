@@ -1,5 +1,31 @@
 #!/bin/bash
 
+# Function to start SSH server with dropbear
+start_ssh_server() {
+    local default_key="/home/${ENKLUM_USERNAME}/.ssh/enklum_dropbear"
+    local private_key
+
+    echo "Enter path to private key [default: ${default_key}]:"
+    read -r private_key
+
+    # Use default if empty
+    if [ -z "${private_key}" ]; then
+        private_key="${default_key}"
+    fi
+
+    # Check if key exists
+    if [ ! -f "${private_key}" ]; then
+        echo "Error: Private key not found: ${private_key}" >&2
+        exit 1
+    fi
+
+    echo "Starting dropbear SSH server on port 10022..."
+    echo "Connect with: ssh -p 10022 ${ENKLUM_USERNAME}@<container-ip>"
+    echo "Private key: ${private_key}"
+
+    sudo dropbear -r "${private_key}" -p 10022 -F -E
+}
+
 # Function to update system
 update_system() {
     sudo dnf upgrade -y && \
@@ -72,6 +98,7 @@ show_help() {
     echo "Options:"
     echo "  --update       Update system packages including mise"
     echo "  --list-pkgs    List available packages & tools"
+    echo "  --ssh-server   Start dropbear SSH server on port 10022"
     echo "  --help         Show this help message and exit"
     echo
     exit 0
@@ -89,6 +116,9 @@ case "$1" in
         ;;
     --list-pkgs)
         list-pkgs
+        ;;
+    --ssh-server)
+        start_ssh_server
         ;;
     --help)
         show_help
