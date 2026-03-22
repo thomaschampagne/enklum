@@ -284,7 +284,7 @@ TODO Rename to "NVIL" for anvil? or NKLM or EKLM ?? => NVIL best ATM
 ## Docker and System
 - [x] Test mounting a volume to `/home/$user` to persist user data
 - [ ] Create a `docker-compose.yml` as a sample
-- [ ] Add ssh server access @P2
+- [ ] Add ssh server access with dropbear @P2
 - [ ] Add brew to the toolchain
 
 ## CLI and Shell
