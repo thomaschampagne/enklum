@@ -53,19 +53,100 @@ ENKLUM uses [Nerd Fonts](https://www.nerdfonts.com/) for icons and glyphs in the
 
 ## 🚀 Quick Start
 
-### Compose sample: Full Varient
+### Compose sample: Full Variants
 
 ```bash
 cp .env.sample .env # Fork env file from sample
-# podman compose -f ./sample.compose.yaml run --rm enklum zsh # Start enklum sample 
-# podman compose -f ./sample.compose.yaml run --entrypoint "zsh -ic zellij" enklum
-
-podman compose -f ./sample.compose.yaml down # Kill existing
-podman compose -f ./sample.compose.yaml up -d # Start enklum sample 
-podman exec -it enklum-full zsh -ic zellij # Connect on Zellij
-
-# podman compose exec enklum zsh -ic zellij # Connect on Zellij
 ```
+
+```bash
+# Kill existing; Start enklum sample;  Connect on Zellij
+podman compose -f ./sample.compose.yaml down 
+podman compose -f ./sample.compose.yaml up -d
+podman exec -it enklum-full zsh -ic zellij
+```
+
+### Shell functions
+
+Add to your shell profile:
+
+**Bash (~/.bashrc):**
+
+```bash
+enklum() {
+  local compose_file="./sample.compose.yaml"
+  local service_name="enklum-full"
+  local connect_cmd="zsh -ic zellij"
+  local reset=false
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h|--help)
+        echo "Usage: enklum [options]"
+        echo "  -r, --reset        Reset: stop containers before starting"
+        echo "  -p, --compose      Compose file path (default: ./sample.compose.yaml)"
+        echo "  -s, --service       Service name (default: enklum-full)"
+        echo "  -c, --cmd           Connect command (default: 'zsh -ic zellij')"
+        echo "  -h, --help          Show this help"
+        return 0
+        ;;
+      -r|--reset) reset=true; shift ;;
+      -p|--compose) compose_file="$2"; shift 2 ;;
+      -s|--service) service_name="$2"; shift 2 ;;
+      -c|--cmd) connect_cmd="$2"; shift 2 ;;
+      *) shift ;;
+    esac
+  done
+
+  if $reset; then
+    echo ">> Stopping containers..."
+    podman compose -f "$compose_file" down || return 1
+  fi
+  echo ">> Starting $compose_file..."
+  podman compose -f "$compose_file" up -d || return 1
+  echo ">> Connecting to $service_name..."
+  podman exec -it "$service_name" $connect_cmd
+}
+```
+
+**PowerShell (~/.config/powershell/Microsoft.PowerShell_profile.ps1):**
+
+```powershell
+function enklum {
+  param(
+    [switch]$Reset,
+    [switch]$Help,
+    [string]$ComposeFile = "./sample.compose.yaml",
+    [string]$ServiceName = "enklum-full",
+    [string]$ConnectCmd = "zsh -ic zellij"
+  )
+  
+  if ($Help) {
+    Write-Host "Usage: enklum [options]"
+    Write-Host "  -r, --reset        Reset: stop containers before starting"
+    Write-Host "  -p, --compose      Compose file path (default: ./sample.compose.yaml)"
+    Write-Host "  -s, --service       Service name (default: enklum-full)"
+    Write-Host "  -c, --cmd           Connect command (default: 'zsh -ic zellij')"
+    Write-Host "  -h, --help          Show this help"
+    return
+  }
+  
+  if ($Reset) {
+    Write-Host ">> Stopping containers..." -ForegroundColor Yellow
+    podman compose -f $ComposeFile down
+    if ($LASTEXITCODE -ne 0) { return 1 }
+  }
+  
+  Write-Host ">> Starting $ComposeFile..." -ForegroundColor Green
+  podman compose -f $ComposeFile up -d
+  
+  if ($LASTEXITCODE -ne 0) { return 1 }
+  Write-Host ">> Connecting to $ServiceName..." -ForegroundColor Cyan
+  Invoke-Expression "podman exec -it $ServiceName $ConnectCmd"
+}
+```
+
+Usage: `enklum`, `enklum -r`, `enklum -p ./custom.yaml -s my-service -c "bash"`, or `enklum -h`
 
 ### Custom Variant
 

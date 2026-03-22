@@ -17,6 +17,11 @@ npm install -g \
 # Force npm cache clean
 npm cache clean --force
 
+
+# DAP config ---
+mise use -g 'github:microsoft/vscode-js-debug[asset_pattern=js-debug-dap-v*.tar.gz]'
+# ---
+
 # Helix language config
 if ! grep -q 'name = "typescript"' ~/.config/helix/languages.toml 2>/dev/null; then
 cat >> ~/.config/helix/languages.toml << 'EOF'
@@ -33,3 +38,4 @@ formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
 EOF
 fi
+

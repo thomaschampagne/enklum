@@ -13,10 +13,9 @@ FROM ghcr.io/thomaschampagne/enklum-core:latest
 # USER ${ENKLUM_USERNAME}
 # TODO --- [END] IN CORE ----
 
-
 # TODO Rename folder as "flavors-images"
 
-# TODO Run apply update using : shared/cmd/enklum --help
+RUN /enklum/cmd/enklum --update
 
 COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   # #### COPY OF BELOW HOST FOLDERS #####

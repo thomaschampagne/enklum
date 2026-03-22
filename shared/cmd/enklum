@@ -3,8 +3,13 @@
 # Function to update system
 update_system() {
     sudo dnf upgrade -y && \
-    sudo mise self-update 
+    mise self-update && \
+    mise upgrade && \
+    mise reshim && \
+    mise prune && \
+    mise cache clean
 }
+
 
 # Function to show tools
 list-pkgs() {

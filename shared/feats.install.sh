@@ -84,6 +84,7 @@ run_feature_installers() {
 
     # Reshim any packages from mise
     mise reshim
+    mise cache clear
 }
 
 run_feature_installers
