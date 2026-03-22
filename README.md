@@ -326,7 +326,14 @@ MIT License — see [LICENSE](LICENSE) file.
 
 ## Triage
 
-TODO Rename to "NVIL" for anvil? or NKLM ??
+TODO Rename to "NVIL" for anvil? or NKLM or EKLM ?? => NVIL best ATM
+
+| Nom  | Prononciation EN (facile ?)           | Prononciation FR | Lien avec "enclume"  |
+| ---- | ------------------------------------- | ---------------- | -------------------- |
+| eklm | "eck-lum" (moyen, "lm" dur) github    | "e-kelm"         | Direct d'"enklum"    |
+| nklm | "nick-lum" (difficile, cluster "nkl") | "en-kelm"        | Indirect             |
+| nvil | "an-vil" (très facile) github         | "en-vil"         | "Anvil" = enclume EN |
+
 
 # TODO Install mise tools inside system and not under home ? to get mise tools integrity linked to each image build ???
 

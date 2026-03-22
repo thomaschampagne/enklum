@@ -39,6 +39,8 @@ ENV \
   COLORTERM="truecolor"
 
 LABEL \
+  name=enklum-${ENKLUM_FLAVOR} \
+  version=${OCI_VERSION} \
   maintainer=${OCI_MAINTAINER} \
   description=${OCI_DESCRIPTION} \
   url=${OCI_REPO_URL} \
@@ -51,8 +53,7 @@ LABEL \
   org.opencontainers.image.authors=${OCI_MAINTAINER} \
   org.opencontainers.image.url=${OCI_REPO_URL} \
   org.opencontainers.image.base.name=${OCI_BASE_IMAGE} \
-  org.opencontainers.image.base.url=${OCI_BASE_IMAGE_URL} \
-  enklum.flavor=${ENKLUM_FLAVOR}
+  org.opencontainers.image.base.url=${OCI_BASE_IMAGE_URL}
 
 # Switch to setup workspace for init & config
 WORKDIR /setup/core/
