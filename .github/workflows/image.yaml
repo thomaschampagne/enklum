@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       arg_file:
-        description: "Path to arg file (default: ./argfile.default.conf)"
+        description: "Path to arg file (default: ./args-build-file.default.conf)"
         required: false
         default: "./args-build-file.default.conf"
   push:
@@ -75,5 +75,22 @@ jobs:
           provenance: false
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ env.OCI_APP_NAME }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ env.OCI_APP_NAME }}:${{ env.BUILD_DATE_SHORT }}
+            ghcr.io/${{ github.repository_owner }}/enklum-core:latest
+            ghcr.io/${{ github.repository_owner }}/enklum-core:${{ env.BUILD_DATE_SHORT }}
+
+      - name: Push enklum-full to Github Container Registry
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./flavors/full.Dockerfile
+          build-args: |
+            OCI_APP_NAME=${{ env.OCI_APP_NAME}}
+            OCI_REPO_URL=https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}/${{ env.OCI_APP_NAME }}
+            OCI_BUILD_DATE=${{ env.BUILD_DATE }}
+            OCI_VERSION=${{ env.OCI_VERSION }}
+          platforms: linux/amd64,linux/arm64
+          provenance: false
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/enklum-full:latest
+            ghcr.io/${{ github.repository_owner }}/enklum-full:${{ env.BUILD_DATE_SHORT }}
