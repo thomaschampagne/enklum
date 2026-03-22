@@ -121,6 +121,7 @@ fi
 echo "Building image: $image_name:$image_tag"
 $runner build \
   --build-arg OCI_BUILD_DATE="$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+  --build-arg OCI_VERSION=$(date +%Y.%m.%d) \
   --build-arg-file "$arg_file_path" \
   --env GITHUB_TOKEN="$github_token" \
   -f "$docker_file" \

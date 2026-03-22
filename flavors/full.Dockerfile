@@ -1,34 +1,28 @@
 FROM ghcr.io/thomaschampagne/enklum-core:latest
 # FROM enklum-core:latest
 
+ARG ENKLUM_NAME="enklum-full"
+
+LABEL \
+  name=${ENKLUM_NAME} \
+  org.opencontainers.image.name=${ENKLUM_NAME}
+
+# TODO Uncomment if ENV flavor is wrong here (=> not "full")
+# ENV ENKLUM_FLAVOR=${ENKLUM_FLAVOR}
+
+USER root
+
 # TODO --- [START] IN CORE ----
-# USER root
 # COPY ./shared /enklum
 # RUN \
 #   # Ensure linux format of setup stuff
 #   find /enklum -type f -exec dos2unix {} \; && \
 #   # Ensure proper rights
 #   chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum && chmod 755 -R /enklum
-
-# USER ${ENKLUM_USERNAME}
 # TODO --- [END] IN CORE ----
 
-ARG ENKLUM_FLAVOR="full"
-ARG ENKLUM_NAME=enklum-${ENKLUM_FLAVOR}
-
-# TODO Uncomment if ENV flavor is wrong here (=> not "full")
-# ENV ENKLUM_FLAVOR=${ENKLUM_FLAVOR}
-
-# TODO Chec how labels update according above args
-# LABEL \
-# name=${ENKLUM_NAME} \
-# org.opencontainers.image.name=${ENKLUM_NAME}
-
-# USER root
-# RUN /enklum/cmd/enklum --update
-# USER ${ENKLUM_USERNAME}
-
-# RUN whoami && zsh -ic "enklum --update"
+# Play Enklum upgrades First
+RUN runuser -u ${ENKLUM_USERNAME} -- bash -c "/enklum/cmd/enklum --update"
 
 COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   # #### COPY OF BELOW HOST FOLDERS #####
@@ -52,4 +46,6 @@ COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   /home/${ENKLUM_USERNAME}/.tmp/
 
 # Bulk apply features
-RUN bash /enklum/feats.install.sh --features-folder ~/.tmp
+RUN bash /enklum/feats.install.sh --features-folder /home/${ENKLUM_USERNAME}/.tmp
+
+USER ${ENKLUM_USERNAME}

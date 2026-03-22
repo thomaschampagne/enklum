@@ -59,7 +59,7 @@ run_feature_installers() {
 
     while IFS= read -r -d '' file; do
         dos2unix -q "$file" 2>/dev/null || true
-        sudo chown "${username}:${username}" "$file"
+        chown "${username}:${username}" "$file"
         if [[ "$file" == *.install.sh ]]; then
             scripts+=("$file")
         fi
@@ -75,7 +75,7 @@ run_feature_installers() {
 
     for script in "${sorted_scripts[@]}"; do
         echo "Running: $script"
-        sudo runuser -u ${ENKLUM_USERNAME} -- bash -c "$script"
+        runuser -u ${ENKLUM_USERNAME} -- bash -c "$script"
     done
 
     # Drop feature folder

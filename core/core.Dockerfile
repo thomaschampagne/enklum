@@ -23,8 +23,7 @@ ARG OCI_REPO_URL
 ARG OCI_BUILD_DATE
 ARG ENKLUM_USERNAME
 ARG ENKLUM_WORKSPACE_DIR
-ARG ENKLUM_FLAVOR="core"
-ARG ENKLUM_NAME=enklum-${ENKLUM_FLAVOR}
+ARG ENKLUM_NAME="enklum-core"
 
 # Envs From Args build
 ENV \
@@ -34,6 +33,7 @@ ENV \
   ENKLUM_GIT_USER_EMAIL="smith@enklum.dev" \
   ENKLUM_DEFAULT_EDITOR="nvim" \
   ENKLUM_VERSION=${OCI_VERSION} \
+  ENKLUM_NAME=${ENKLUM_NAME} \
   TZ="Europe/Paris" \
   TERM="xterm-256color" \
   COLORTERM="truecolor"
@@ -73,9 +73,9 @@ RUN \
   bash ./system/dnf.install.sh && bash ./system/os.config.sh && \
   # Ensure proper rights on home resources & copy to real home folder before running scripts as user
   chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R ./res && cp -ar ./res/home/. /home/${ENKLUM_USERNAME} && \
-  # Init user base config
+  # Init user core config
   runuser -u ${ENKLUM_USERNAME} -- bash -c "./system/user.config.sh" && \
-  # Install core tools & config them  as user
+  # Install core tools & config them as user
   runuser -u ${ENKLUM_USERNAME} -- bash -c "./tools/tools.install.sh" && runuser -u ${ENKLUM_USERNAME} -- bash -c "./tools/tools.config.sh" && \
   # Drop setup
   rm -rf /setup
