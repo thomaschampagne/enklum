@@ -17,10 +17,8 @@ npm install -g \
 # Force npm cache clean
 npm cache clean --force
 
-
-# DAP config ---
+# TODO DAP config not working
 mise use -g 'github:microsoft/vscode-js-debug[asset_pattern=js-debug-dap-v*.tar.gz]'
-# ---
 
 # Helix language config
 if ! grep -q 'name = "typescript"' ~/.config/helix/languages.toml 2>/dev/null; then
@@ -39,3 +37,7 @@ auto-format = true
 EOF
 fi
 
+# Note: You can force bun to execute LSP instead of node (if installed) with below. Also ensure: bun add -g typescript-language-server typescript prettier
+# [language-server.typescript-language-server]
+# command = "bunx"
+# args = [ "--bun", "typescript-language-server", "--stdio" ]

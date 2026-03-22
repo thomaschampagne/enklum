@@ -1,16 +1,17 @@
-# TODO Try to add below to default schema when using docker ?
 # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+# TODO Try to add above schema to default schema when using docker ?
 
 services:
   enklum:
-    container_name: ${ENKLUM_CONTAINER_NAME:-enklum-core}
-    image: ${ENKLUM_IMAGE_NAME:-enklum-core}:${ENKLUM_IMAGE_TAG:-latest}
-    hostname: ${ENKLUM_CONTAINER_NAME:-enklum-core}
+    container_name: ${ENKLUM_CONTAINER_NAME:-enklum-sample}
+    image: ${ENKLUM_IMAGE_NAME:-ghcr.io/thomaschampagne/enklum-full}:${ENKLUM_IMAGE_TAG:-latest}
+    hostname: ${ENKLUM_CONTAINER_NAME:-enklum-sample}
+    restart: unless-stopped
     env_file:
       - .env
     working_dir: /workspace
     volumes:
-      # - home-volume:/home/${ENKLUM_USERNAME:-smith}:delegated # TODO restore for samples
+      - home-volume:/home/${ENKLUM_USERNAME:-smith}:delegated # TODO restore for samples
       - ${ENKLUM_WORKSPACE_HOST_PATH:-.}:/workspace:delegated
     network_mode: host
     cap_add:
@@ -20,10 +21,4 @@ services:
 
 volumes:
   home-volume:
-    name: ${ENKLUM_HOME_VOLUME:-enklum-core-home}
-
-# volumes:
-# enklum-core-home: # Declare the default volume name
-# volumes:
-# - ${ENKLUM_HOME_VOLUME:-enklum-core-home}:/home/${ENKLUM_USERNAME:-smith}:delegated
-# ${ENKLUM_HOME_VOLUME:-${ENKLUM_CONTAINER_NAME}-home}:
+    name: ${ENKLUM_HOME_VOLUME:-enklum-sample-home}

@@ -6,7 +6,7 @@
 A Portable Terminal Development Environment
 </pre>
 
-# NVIL: Portable Terminal-Driven Development Environment
+# NVIL
 
 NVIL (from the word **Anvil**) is a ready-to-use containerized development environment built on Fedora. It provides a terminal-first development workspace with pre-configured tools, so you can start coding immediately without setting up a new machine.
 
@@ -56,7 +56,7 @@ cp .env.sample .env
 ```bash
 podman compose -f ./sample.compose.yaml down  # Stop any existing containers
 podman compose -f ./sample.compose.yaml up -d # Start the environment
-podman exec -it enklum-full zsh -ic zellij    # Connect via Zellij. 
+podman exec -it enklum-sample zsh -ic zellij    # Connect via Zellij. 
 ```
 
 ### Option 2: Use the Shell Function (Recommended)
