@@ -23,7 +23,7 @@ ARG OCI_REPO_URL
 ARG OCI_BUILD_DATE
 ARG ENKLUM_USERNAME
 ARG ENKLUM_WORKSPACE_DIR
-ARG ENKLUM_NAME="enklum-core"
+ARG ENKLUM_FLAVOR="enklum-core"
 
 # Envs From Args build
 ENV \
@@ -33,20 +33,20 @@ ENV \
   ENKLUM_GIT_USER_EMAIL="smith@enklum.dev" \
   ENKLUM_DEFAULT_EDITOR="nvim" \
   ENKLUM_VERSION=${OCI_VERSION} \
-  ENKLUM_NAME=${ENKLUM_NAME} \
+  ENKLUM_FLAVOR=${ENKLUM_FLAVOR} \
   TZ="Europe/Paris" \
   TERM="xterm-256color" \
   COLORTERM="truecolor"
 
 LABEL \
-  name=${ENKLUM_NAME} \
+  name=${ENKLUM_FLAVOR} \
   version=${OCI_VERSION} \
   maintainer=${OCI_MAINTAINER} \
   description=${OCI_DESCRIPTION} \
   url=${OCI_REPO_URL} \
   base-image=${OCI_BASE_IMAGE} \
   base-image-url=${OCI_BASE_IMAGE_URL} \
-  org.opencontainers.image.name=${ENKLUM_NAME} \
+  org.opencontainers.image.name=${ENKLUM_FLAVOR} \
   org.opencontainers.image.title=${OCI_TITLE} \
   org.opencontainers.image.description=${OCI_DESCRIPTION} \
   org.opencontainers.image.version=${OCI_VERSION} \

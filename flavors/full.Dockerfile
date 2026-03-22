@@ -1,29 +1,17 @@
 FROM ghcr.io/thomaschampagne/enklum-core:latest
 # FROM enklum-core:latest
 
-ARG ENKLUM_NAME="enklum-full"
-
+ARG ENKLUM_FLAVOR="enklum-full"
 LABEL \
-  name=${ENKLUM_NAME} \
-  org.opencontainers.image.name=${ENKLUM_NAME}
+  name=${ENKLUM_FLAVOR} \
+  org.opencontainers.image.name=${ENKLUM_FLAVOR}
+ENV ENKLUM_FLAVOR=${ENKLUM_FLAVOR}
 
-# TODO Uncomment if ENV flavor is wrong here (=> not "full")
-# ENV ENKLUM_FLAVOR=${ENKLUM_FLAVOR}
-
-USER root
-
-# TODO --- [START] IN CORE ----
-# COPY ./shared /enklum
-# RUN \
-#   # Ensure linux format of setup stuff
-#   find /enklum -type f -exec dos2unix {} \; && \
-#   # Ensure proper rights
-#   chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum && chmod 755 -R /enklum
-# TODO --- [END] IN CORE ----
-
-# Play Enklum upgrades First (dnf as root, mise as user)
-RUN dnf upgrade -y && \
-    runuser -u ${ENKLUM_USERNAME} -- bash -c "mise self-update && mise upgrade && mise reshim && mise prune && mise cache clean"
+# Play Enklum upgrades First (sudo not supported in CI, switch to root for dnf)
+# USER root
+# RUN dnf upgrade -y
+# USER ${ENKLUM_USERNAME}
+# RUN mise self-update && mise upgrade && mise reshim && mise prune && mise cache clean
 
 COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   # #### COPY OF BELOW HOST FOLDERS #####
@@ -48,5 +36,3 @@ COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
 
 # Bulk apply features
 RUN bash /enklum/feats.install.sh --features-folder /home/${ENKLUM_USERNAME}/.tmp
-
-USER ${ENKLUM_USERNAME}
