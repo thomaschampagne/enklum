@@ -21,8 +21,9 @@ USER root
 #   chown ${ENKLUM_USERNAME}:${ENKLUM_USERNAME} -R /enklum && chmod 755 -R /enklum
 # TODO --- [END] IN CORE ----
 
-# Play Enklum upgrades First
-RUN runuser -u ${ENKLUM_USERNAME} -- bash -c "/enklum/cmd/enklum --update"
+# Play Enklum upgrades First (dnf as root, mise as user)
+RUN dnf upgrade -y && \
+    runuser -u ${ENKLUM_USERNAME} -- bash -c "mise self-update && mise upgrade && mise reshim && mise prune && mise cache clean"
 
 COPY --parents --chown=${ENKLUM_USERNAME}:${ENKLUM_USERNAME} \
   # #### COPY OF BELOW HOST FOLDERS #####
